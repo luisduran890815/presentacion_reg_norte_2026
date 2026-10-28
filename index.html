@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Regional Norte | Gestión Administrativa SURA</title>
+<style>
+:root{--navy:#002F6C;--cyan:#00AEC7;--lb:#8EAFEF;--green:#96C676;--yellow:#E5EB10;--grey:#BDBDBD;--lg:#F2F2F2;--text:#17365D;--red:#FF0000}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;color:var(--text);background:#fff;overflow:hidden}
+header{position:fixed;top:0;left:0;right:0;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:#fff;z-index:20;border-bottom:3px solid var(--cyan)}
+header .ttl{font-weight:bold;color:var(--navy);font-size:18px}
+.logo{font-weight:900;font-size:30px;color:var(--navy);letter-spacing:-1px}
+.logo img{height:38px;display:block}
+nav.dots{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:20}
+nav.dots button{width:12px;height:12px;border-radius:50%;border:2px solid var(--navy);background:#fff;cursor:pointer}
+nav.dots button.on{background:var(--navy)}
+.tools{position:fixed;right:22px;top:84px;display:flex;flex-direction:column;gap:10px;z-index:25}
+.tools button{background:var(--navy);color:#fff;border:0;border-radius:24px;padding:10px 16px;font:bold 13px Arial;cursor:pointer;box-shadow:0 3px 10px #0002;text-align:left}
+.tools button:nth-child(2){background:var(--cyan)}.tools button:nth-child(3){background:#5b8f3a}
+.tools button.sec{background:#fff;color:var(--navy);border:2px solid var(--navy)}
+.arrow{position:fixed;top:50%;z-index:20;background:#fff;border:2px solid var(--navy);color:var(--navy);width:42px;height:42px;border-radius:50%;font-size:20px;cursor:pointer}
+#prev{left:14px}#next{right:14px;top:auto;bottom:16px}
+#prev{top:auto;bottom:16px;left:auto;right:64px}
+main{position:absolute;top:64px;bottom:0;left:0;right:0}
+section.slide{position:absolute;inset:0;padding:34px 200px 70px 60px;opacity:0;pointer-events:none;transform:translateX(40px);transition:.5s;overflow:auto}
+section.slide.on{opacity:1;pointer-events:auto;transform:none}
+h1{font-size:46px;color:var(--navy)}h2{font-size:30px;color:var(--navy);margin-bottom:4px}
+.sub{font-size:19px;color:var(--text);margin-bottom:24px}
+.kicker{color:var(--cyan);font-weight:bold;letter-spacing:2px;font-size:14px;text-transform:uppercase}
+/* portada */
+.cover{display:flex;height:100%;align-items:center;gap:50px}
+.cover .band{background:var(--navy);color:#fff;border-radius:22px;padding:50px;flex:1.3}
+.cover .band h1{color:#fff;font-size:50px;margin:10px 0}
+.cover .band p{color:#BFEAF0;font-size:20px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.chip{background:var(--cyan);color:#fff;border-radius:20px;padding:7px 14px;font-weight:bold;font-size:14px}
+.cover .side{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.stat{background:var(--lg);border-radius:16px;padding:22px}
+.stat b{display:block;font-size:34px;color:var(--navy)}
+/* organigrama */
+.org{display:flex;flex-direction:column;align-items:center}
+.lvl{display:flex;gap:28px;justify-content:center;position:relative}
+.conn{width:2px;height:30px;background:var(--grey)}
+.hline{height:2px;background:var(--grey);width:calc(66% + 10px)}
+.person{width:290px;background:#fff;border:1px solid #dde3ec;border-radius:16px;overflow:hidden;box-shadow:0 4px 14px #0001;cursor:pointer;transition:.25s}
+.person:hover{transform:translateY(-4px)}
+.person .top{display:flex;gap:14px;align-items:center;padding:16px;background:var(--lg)}
+.avatar{width:62px;height:62px;border-radius:50%;background:var(--cyan);color:#fff;font-weight:bold;font-size:22px;display:grid;place-items:center;overflow:hidden;flex:none}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.lead .avatar{background:var(--navy)}
+.person .rol{font-size:12px;font-weight:bold;color:var(--cyan);text-transform:uppercase}
+.person .nm{font-weight:bold;color:var(--navy);font-size:16px}
+.person .bio{padding:14px 16px;font-size:14px;line-height:1.45;min-height:84px;max-height:0;overflow:hidden;transition:.3s;padding-top:0;padding-bottom:0}
+.person.open .bio{max-height:400px;padding:14px 16px}
+.hint{font-size:12px;color:#777;text-align:center;margin-top:16px}
+/* ciudades */
+.cities{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin-bottom:18px}
+.city{border:2px solid var(--lg);background:var(--lg);border-radius:14px;padding:12px 6px;text-align:center;font-weight:bold;color:var(--navy);cursor:pointer;font-size:14px}
+.city.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.cdet{display:grid;grid-template-columns:1.05fr 1.4fr;gap:24px}
+.photo{border-radius:18px;height:330px;background:linear-gradient(135deg,var(--navy),var(--cyan));position:relative;overflow:hidden;display:grid;place-items:center;color:#fff;text-align:center}
+.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.photo .cap{position:absolute;left:0;right:0;bottom:0;background:#002F6Ccc;padding:10px 14px;font-size:13px;text-align:left}
+.years{display:flex;gap:8px;margin-bottom:12px}
+.years button{border:0;border-radius:18px;padding:8px 18px;font:bold 14px Arial;cursor:pointer;background:var(--lg);color:var(--navy)}
+.years button.on{background:var(--cyan);color:#fff}
+.tl{list-style:none;border-left:3px solid var(--cyan);padding-left:18px}
+.tl li{position:relative;background:var(--lg);border-radius:12px;padding:12px 14px;margin-bottom:10px;font-size:15px}
+.tl li:before{content:"";position:absolute;left:-27px;top:15px;width:13px;height:13px;border-radius:50%;background:var(--navy);border:3px solid #fff}
+.tl li.pend{border:1px dashed var(--grey);background:#fff;color:#888}
+/* video */
+.vbox{background:var(--lg);border-radius:18px;padding:20px;display:grid;grid-template-columns:2fr 1fr;gap:20px}
+.vframe{aspect-ratio:16/9;background:#000;border-radius:12px;overflow:hidden;display:grid;place-items:center;color:#fff}
+.vframe iframe,.vframe video{width:100%;height:100%;border:0}
+input[type=text]{width:100%;padding:10px;border:1px solid var(--grey);border-radius:8px;font:14px Arial;margin:8px 0}
+.btn{background:var(--navy);color:#fff;border:0;border-radius:8px;padding:9px 14px;font:bold 13px Arial;cursor:pointer}
+/* cierre */
+.close{display:grid;place-items:center;height:100%;text-align:center}
+.close h1{font-size:64px}
+/* modales */
+.modal{position:fixed;inset:0;background:#00142ecc;z-index:50;display:none;align-items:center;justify-content:center;padding:24px}
+.modal.on{display:flex;animation:fade .3s}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.mbox{background:#fff;border-radius:20px;width:min(1180px,96vw);max-height:92vh;overflow:auto;position:relative}
+.mhead{position:sticky;top:0;background:var(--navy);color:#fff;padding:18px 26px;display:flex;justify-content:space-between;align-items:center;z-index:2}
+.mhead h2{color:#fff;margin:0}
+.mhead button{background:#fff;color:var(--navy);border:0;border-radius:50%;width:36px;height:36px;font-size:18px;cursor:pointer}
+.mbody{padding:24px 26px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
+.kpi{border-radius:14px;padding:18px;color:#fff}
+.kpi b{display:block;font-size:30px}
+.k1{background:var(--navy)}.k2{background:var(--cyan)}.k3{background:#5b8f3a}.k4{background:#c9cf00;color:var(--navy)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:22px}
+.card{background:var(--lg);border-radius:14px;padding:18px}
+.card h3{color:var(--navy);margin-bottom:12px;font-size:16px}
+.bar{display:grid;grid-template-columns:150px 1fr 110px;gap:10px;align-items:center;margin:7px 0;font-size:13px}
+.bar .tr{background:#fff;border-radius:8px;height:20px;overflow:hidden}
+.bar .fl{height:100%;border-radius:8px;width:0;transition:width 1s}
+.bar .v{text-align:right;font-weight:bold}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.filters select,.filters input{padding:8px;border:1px solid var(--grey);border-radius:8px;font:13px Arial}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:var(--navy);color:#fff;text-align:left;padding:8px;position:sticky;top:0;cursor:pointer}
+td{padding:7px 8px;border-bottom:1px solid #e3e3e3}
+tr:hover td{background:#f5fbfc}
+td.n{text-align:right;white-space:nowrap}
+.note{font-size:12px;color:#666;margin-top:8px}
+.pending{border:2px dashed var(--grey);border-radius:14px;padding:20px;text-align:center;color:#777}
+/* vision */
+.tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.tabs button{border:0;border-radius:20px;padding:9px 16px;background:var(--lg);color:var(--navy);font:bold 13px Arial;cursor:pointer}
+.tabs button.on{background:var(--navy);color:#fff}
+.tabc{display:none}.tabc.on{display:block;animation:fade .3s}
+.vis-hero{display:grid;grid-template-columns:1.3fr 1fr;gap:22px;align-items:stretch}
+.quote{background:var(--navy);color:#fff;border-radius:16px;padding:26px;font-size:19px;line-height:1.5}
+.imgslot{border-radius:16px;min-height:220px;background:linear-gradient(135deg,var(--cyan),var(--green));position:relative;overflow:hidden;display:grid;place-items:center;color:#fff;font-size:13px;text-align:center;padding:10px}
+.imgslot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.princ{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.princ .card{border-top:5px solid var(--cyan)}
+.princ .card:nth-child(2){border-color:var(--green)}.princ .card:nth-child(3){border-color:var(--yellow)}.princ .card:nth-child(4){border-color:var(--navy)}
+.road{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.road .st{border-radius:14px;padding:14px;color:#fff;font-size:13px;line-height:1.4}
+.road .st b{display:block;font-size:20px;margin-bottom:6px}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.pillars .card p,.card p{font-size:14px;line-height:1.45}
+/* IA */
+.ia{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.ia .card{position:relative;border-left:5px solid var(--cyan)}
+.tag{display:inline-block;font-size:11px;font-weight:bold;padding:3px 9px;border-radius:10px;background:var(--navy);color:#fff;margin-bottom:8px}
+.tag.y{background:var(--yellow);color:var(--navy)}.tag.g{background:var(--green);color:var(--navy)}
+.flow{display:flex;gap:6px;align-items:center;margin:18px 0;flex-wrap:wrap}
+.flow div{background:var(--cyan);color:#fff;border-radius:12px;padding:10px 14px;font-weight:bold;font-size:13px}
+.flow span{color:var(--grey);font-size:22px}
+/* edición */
+body.edit [data-edit]{outline:2px dashed var(--cyan);outline-offset:3px;background:#fffde6}
+body.edit [data-edit]:focus{outline-color:var(--navy)}
+.editbar{position:fixed;left:22px;bottom:16px;z-index:30;display:none;gap:8px}
+body.edit .editbar{display:flex}
+@media(max-width:1000px){section.slide{padding:24px 18px 80px}.tools{top:auto;bottom:60px;right:10px;flex-direction:row}.cities{grid-template-columns:repeat(4,1fr)}.cdet,.grid2,.vis-hero,.ia,.pillars{grid-template-columns:1fr}.kpis,.princ,.road{grid-template-columns:1fr 1fr}.cover{flex-direction:column}.lvl{flex-direction:column}.hline{display:none}}
+@media print{.tools,nav,.arrow,.editbar{display:none}}
+</style>
+</head>
+<body>
+<header>
+  <div class="ttl">Gestión Administrativa · Regional Norte</div>
+  <div class="logo" id="logo">SURA</div>
+</header>
+
+<div class="tools">
+  <button onclick="openM('mCifras')">📊 Cifras 2026</button>
+  <button onclick="openM('mVision')">🔭 Visión a 5 años</button>
+  <button onclick="openM('mIA')">🤖 IA y automatización</button>
+  <button class="sec" onclick="toggleEdit()" id="bEdit">✏️ Modo edición</button>
+</div>
+<div class="editbar">
+  <button class="btn" onclick="downloadHTML()">⬇️ Descargar HTML con cambios</button>
+  <button class="btn" style="background:#888" onclick="resetEdits()">Restablecer textos</button>
+</div>
+
+<main>
+<!-- 1 PORTADA -->
+<section class="slide on">
+ <div class="cover">
+  <div class="band">
+   <div class="kicker" style="color:#BFEAF0">Seguros SURA Colombia</div>
+   <h1 data-edit="cov-t">Gestión Administrativa<br>Regional Norte</h1>
+   <p data-edit="cov-s">Infraestructura, mantenimiento y proyectos que hacen posible la operación de nuestras sedes.</p>
+   <div class="chips"><span class="chip">Barranquilla</span><span class="chip">Cartagena</span><span class="chip">Bucaramanga</span><span class="chip">Cúcuta</span><span class="chip">Santa Marta</span><span class="chip">Montería</span><span class="chip">Valledupar</span></div>
+  </div>
+  <div class="side">
+   <div class="stat"><b>7</b>ciudades principales</div>
+   <div class="stat"><b id="cImp">–</b>ejecución mantenimiento de impacto</div>
+   <div class="stat"><b id="cProj">–</b>proyectos 2026</div>
+   <div class="stat"><b id="cVal">–</b>presupuesto proyectos 2026</div>
+  </div>
+ </div>
+</section>
+
+<!-- 2 ORGANIGRAMA -->
+<section class="slide">
+ <div class="kicker">Equipo</div>
+ <h2>Organigrama</h2>
+ <p class="sub">Haz clic en cada tarjeta para ver el resumen personal.</p>
+ <div class="org">
+  <div class="lvl">
+   <div class="person lead" onclick="this.classList.toggle('open')">
+    <div class="top"><div class="avatar" data-img="img/equipo/martha.jpg">MV</div><div><div class="rol">Líder</div><div class="nm">Martha Cecilia Vitola Tamara</div></div></div>
+    <div class="bio" data-edit="bio-martha" onclick="event.stopPropagation()">Escriba aquí el resumen personal y profesional de Martha.</div>
+   </div>
+  </div>
+  <div class="conn"></div><div class="hline"></div>
+  <div class="lvl" style="margin-top:0">
+   <div style="display:flex;flex-direction:column;align-items:center"><div class="conn"></div>
+   <div class="person" onclick="this.classList.toggle('open')">
+    <div class="top"><div class="avatar" data-img="img/equipo/osiris.jpg">OB</div><div><div class="rol">Analista</div><div class="nm">Osiris Amparo Brochado Muñoz</div></div></div>
+    <div class="bio" data-edit="bio-osiris" onclick="event.stopPropagation()">Escriba aquí el resumen personal y profesional de Osiris.</div>
+   </div></div>
+   <div style="display:flex;flex-direction:column;align-items:center"><div class="conn"></div>
+   <div class="person" onclick="this.classList.toggle('open')">
+    <div class="top"><div class="avatar" data-img="img/equipo/luis.jpg">LD</div><div><div class="rol">Analista</div><div class="nm">Luis Eduardo Durán Mora</div></div></div>
+    <div class="bio" data-edit="bio-luis" onclick="event.stopPropagation()">Escriba aquí el resumen personal y profesional de Luis.</div>
+   </div></div>
+   <div style="display:flex;flex-direction:column;align-items:center"><div class="conn"></div>
+   <div class="person" onclick="this.classList.toggle('open')">
+    <div class="top"><div class="avatar" data-img="img/equipo/jerson.jpg">JD</div><div><div class="rol">Analista</div><div class="nm">Jerson Abel Díaz Uribe</div></div></div>
+    <div class="bio" data-edit="bio-jerson" onclick="event.stopPropagation()">Escriba aquí el resumen personal y profesional de Jerson.</div>
+   </div></div>
+  </div>
+  <p class="hint">Fotos opcionales: img/equipo/martha.jpg, osiris.jpg, luis.jpg, jerson.jpg</p>
+ </div>
+</section>
+
+<!-- 3 CIUDADES -->
+<section class="slide">
+ <div class="kicker">Presencia regional</div>
+ <h2>Ciudades principales y mejoras 2024-2026</h2>
+ <p class="sub">Selecciona la ciudad y el año para recorrer las mejoras ejecutadas.</p>
+ <div class="cities" id="cities"></div>
+ <div class="cdet">
+  <div class="photo" id="cPhoto"></div>
+  <div><div class="years" id="years"></div><ul class="tl" id="tl"></ul></div>
+ </div>
+</section>
+
+<!-- 4 VIDEO -->
+<section class="slide">
+ <div class="kicker">Multimedia</div>
+ <h2>Video de la Regional</h2>
+ <p class="sub" data-edit="vid-s">Un recorrido por nuestras sedes y proyectos.</p>
+ <div class="vbox">
+  <div class="vframe" id="vframe">Sin video cargado</div>
+  <div>
+   <h3 style="color:var(--navy)">Cargar video</h3>
+   <p style="font-size:13px;margin-top:8px">Pega un enlace de YouTube para probarlo. Para dejarlo fijo en Netlify, edita <b>data.js</b> o sube <b>video/presentacion.mp4</b>.</p>
+   <input type="text" id="yt" placeholder="https://www.youtube.com/watch?v=...">
+   <button class="btn" onclick="setYT(document.getElementById('yt').value)">Mostrar video</button>
+  </div>
+ </div>
+</section>
+
+<!-- 5 CIERRE -->
+<section class="slide">
+ <div class="close"><div>
+  <div class="kicker">Regional Norte</div>
+  <h1 data-edit="end-t">Gracias</h1>
+  <p class="sub" data-edit="end-s">Cuidamos los espacios donde SURA cuida a las personas.</p>
+ </div></div>
+</section>
+</main>
+
+<button class="arrow" id="prev" onclick="go(cur-1)">‹</button>
+<button class="arrow" id="next" onclick="go(cur+1)">›</button>
+<nav class="dots" id="dots"></nav>
+
+<!-- MODAL CIFRAS -->
+<div class="modal" id="mCifras"><div class="mbox">
+ <div class="mhead"><h2>Cifras 2026 · Regional Norte</h2><button onclick="closeM()">✕</button></div>
+ <div class="mbody">
+  <div class="tabs" id="ctabs">
+   <button class="on" data-t="c1">Proyectos</button><button data-t="c2">Mantenimiento de impacto</button><button data-t="c3">Presupuesto operativo</button>
+  </div>
+
+  <div class="tabc on" id="c1">
+   <div class="kpis">
+    <div class="kpi k1"><b id="kTot">–</b>Presupuesto proyectos</div>
+    <div class="kpi k2"><b id="kN">–</b>Proyectos en ejecución</div>
+    <div class="kpi k3"><b id="kPag">–</b>Pagado en obras</div>
+    <div class="kpi k4"><b id="kPen">–</b>Pendiente de pago</div>
+   </div>
+   <div class="grid2">
+    <div class="card"><h3>Presupuesto por ciudad</h3><div id="gCity"></div></div>
+    <div class="card"><h3>Presupuesto por compañía</h3><div id="gCia"></div></div>
+   </div>
+   <div class="grid2">
+    <div class="card"><h3>Presupuesto por analista</h3><div id="gAn"></div></div>
+    <div class="card"><h3>Pagos 2026</h3><div id="gPay"></div></div>
+   </div>
+   <div class="card">
+    <h3>Detalle de proyectos</h3>
+    <div class="filters">
+     <input id="fTxt" placeholder="Buscar..." oninput="renderTable()">
+     <select id="fCity" onchange="renderTable()"><option value="">Todas las ciudades</option></select>
+     <select id="fCia" onchange="renderTable()"><option value="">Todas las compañías</option></select>
+    </div>
+    <div style="max-height:340px;overflow:auto"><table><thead><tr><th onclick="sortBy(0)">IQS</th><th onclick="sortBy(4)">Proyecto</th><th onclick="sortBy(3)">Ciudad</th><th onclick="sortBy(2)">Compañía</th><th onclick="sortBy(1)">Analista</th><th onclick="sortBy(5)">Presupuesto</th><th onclick="sortBy(6)">Pagado</th><th onclick="sortBy(7)">Pendiente</th></tr></thead><tbody id="tb"></tbody></table></div>
+    <p class="note">Fuente: Pagos Norte 2026 (LISTA PROYECTOS y OBRAS Y ADECUACIONES). Pagado y pendiente corresponden a pedidos registrados por proyecto. La ciudad se asignó según la descripción del proyecto.</p>
+   </div>
+  </div>
+
+  <div class="tabc" id="c2">
+   <div class="kpis">
+    <div class="kpi k1"><b id="iAp">–</b>Presupuesto aprobado</div>
+    <div class="kpi k2"><b id="iEj">–</b>Ejecutado</div>
+    <div class="kpi k3"><b id="iPc">–</b>% de ejecución</div>
+    <div class="kpi k4"><b id="iAv">–</b>Avisos SAP gestionados</div>
+   </div>
+   <div class="grid2">
+    <div class="card"><h3>Ejecutado vs. presupuesto por ciudad</h3><div id="gImpCity"></div></div>
+    <div class="card"><h3>Estado de las actividades</h3><div id="gEst"></div></div>
+   </div>
+   <div class="card" style="margin-bottom:22px"><h3>Ejecución por sede</h3><div style="max-height:300px;overflow:auto"><table><thead><tr><th>Sede</th><th>Ciudad</th><th>Compañía</th><th>Presupuesto</th><th>Ejecutado</th><th>%</th><th>Seguimiento</th></tr></thead><tbody id="tbImp"></tbody></table></div></div>
+   <div class="card">
+    <h3>Actividades (avisos SAP)</h3>
+    <div class="filters">
+     <input id="aTxt" placeholder="Buscar actividad, sede o proveedor..." oninput="renderAv()">
+     <select id="aCity" onchange="renderAv()"><option value="">Todas las ciudades</option></select>
+     <select id="aEst" onchange="renderAv()"><option value="">Todos los estados</option></select>
+    </div>
+    <div style="max-height:340px;overflow:auto"><table><thead><tr><th>Aviso</th><th>Actividad</th><th>Sede</th><th>Ciudad</th><th>Costo</th><th>Estado</th><th>Avance</th><th>Proveedor</th></tr></thead><tbody id="tbAv"></tbody></table></div>
+    <p class="note">Fuente: Consolidado Cierre 2025 y Presupuesto 2026 (PTTO IMPACTO y AVISOS IMPACTO). Presupuesto después de cruces entre compañías.</p>
+   </div>
+  </div>
+
+  <div class="tabc" id="c3">
+   <div class="kpis">
+    <div class="kpi k1"><b id="oTot">–</b>Presupuesto operativo 2026</div>
+    <div class="kpi k2"><b id="oMan">–</b>Mantenimiento</div>
+    <div class="kpi k3"><b id="oSp">–</b>Servicios públicos</div>
+    <div class="kpi k4"><b id="oLin">–</b>Líneas ceco-cuenta</div>
+   </div>
+   <div class="grid2">
+    <div class="card"><h3>Por área de gasto</h3><div id="gArea"></div></div>
+    <div class="card"><h3>Por compañía</h3><div id="gOCia"></div></div>
+   </div>
+   <p class="note">Fuente: hoja Presupuesto 2026, filtrada por Regional NORTE, columna Final Aprobado.</p>
+  </div>
+ </div>
+</div></div>
+
+<!-- MODAL VISION -->
+<div class="modal" id="mVision"><div class="mbox">
+ <div class="mhead"><h2>Visión estratégica 2027-2031</h2><button onclick="closeM()">✕</button></div>
+ <div class="mbody">
+  <div class="tabs" id="vtabs">
+   <button class="on" data-t="v1">Visión</button><button data-t="v2">Principios SURA</button><button data-t="v3">Pilares inmobiliarios</button><button data-t="v4">Hoja de ruta</button>
+  </div>
+  <div class="tabc on" id="v1">
+   <div class="vis-hero">
+    <div class="quote" data-edit="vis-main">En 2031, la Regional Norte será referente en gestión inmobiliaria para el sector asegurador y de salud: con sedes seguras, accesibles, sostenibles y eficientes, decisiones basadas en datos y una operación que aporta valor a cada negocio de SURA.</div>
+    <div class="imgslot" data-img="img/vision/vision-1.jpg">Imagen opcional<br>img/vision/vision-1.jpg</div>
+   </div>
+   <div class="grid2" style="margin-top:18px">
+    <div class="card"><h3>Propósito del equipo</h3><p data-edit="vis-prop">Garantizar espacios físicos que habiliten la prestación de servicios de salud y seguros con calidad, continuidad y bienestar para usuarios y empleados.</p></div>
+    <div class="card"><h3>Cómo lo lograremos</h3><p data-edit="vis-como">Planeación del portafolio inmobiliario, mantenimiento basado en criticidad, proyectos con control de alcance y costo, y automatización de la información.</p></div>
+   </div>
+  </div>
+  <div class="tabc" id="v2">
+   <p class="sub">La visión se orienta por los principios permanentes del Grupo Empresarial SURA.</p>
+   <div class="princ">
+    <div class="card"><h3>Equidad</h3><p data-edit="pr-eq">Priorizar inversiones según necesidad real de cada sede y ciudad, con condiciones justas para usuarios, empleados y proveedores.</p></div>
+    <div class="card"><h3>Respeto</h3><p data-edit="pr-re">Espacios accesibles e incluyentes, diseñados escuchando a usuarios, equipos asistenciales y comunidades vecinas.</p></div>
+    <div class="card"><h3>Responsabilidad</h3><p data-edit="pr-rs">Anticipar riesgos de infraestructura, cumplir normas de habilitación y sismorresistencia, y cuidar los activos confiados.</p></div>
+    <div class="card"><h3>Transparencia</h3><p data-edit="pr-tr">Contratación trazable, cifras abiertas y rendición de cuentas sobre presupuesto, ejecución y resultados.</p></div>
+   </div>
+  </div>
+  <div class="tabc" id="v3">
+   <div class="pillars">
+    <div class="card"><span class="tag">Portafolio</span><h3>Optimización inmobiliaria</h3><p data-edit="pi-1">Consolidar sedes, evaluar compra vs. arriendo, liberar activos subutilizados y planear crecimiento por ciudad.</p></div>
+    <div class="card"><span class="tag g">Sostenibilidad</span><h3>Sedes ecoeficientes</h3><p data-edit="pi-2">Energía solar, renovación HVAC e iluminación LED, uso eficiente de agua y estándares de construcción sostenible.</p></div>
+    <div class="card"><span class="tag y">Riesgo</span><h3>Infraestructura segura</h3><p data-edit="pi-3">Cumplimiento NSR-10, contingencias eléctricas, accesibilidad y continuidad de sedes asistenciales críticas.</p></div>
+    <div class="card"><span class="tag">Activos</span><h3>Gestión del ciclo de vida</h3><p data-edit="pi-4">Inventario técnico, vida útil remanente y planes de impacto a 10 años por sede.</p></div>
+    <div class="card"><span class="tag g">Experiencia</span><h3>Espacios centrados en las personas</h3><p data-edit="pi-5">Salas de espera, lactancia, rehabilitación y puestos de trabajo que mejoren la experiencia de usuarios y empleados.</p></div>
+    <div class="card"><span class="tag y">Datos</span><h3>Decisiones con información</h3><p data-edit="pi-6">Tableros de proyectos, mantenimiento y costos por sede para priorizar con evidencia.</p></div>
+   </div>
+   <div class="grid2" style="margin-top:18px"><div class="imgslot" data-img="img/vision/vision-2.jpg">Imagen opcional<br>img/vision/vision-2.jpg</div><div class="imgslot" data-img="img/vision/vision-3.jpg" style="background:linear-gradient(135deg,var(--navy),var(--lb))">Imagen opcional<br>img/vision/vision-3.jpg</div></div>
+  </div>
+  <div class="tabc" id="v4">
+   <div class="road">
+    <div class="st" style="background:var(--grey);color:var(--navy)"><b>2027</b><span data-edit="rd-1">Diagnóstico del portafolio y plan maestro por ciudad.</span></div>
+    <div class="st" style="background:var(--lb);color:var(--navy)"><b>2028</b><span data-edit="rd-2">Consolidación de sedes y primeras soluciones de energía renovable.</span></div>
+    <div class="st" style="background:var(--green);color:var(--navy)"><b>2029</b><span data-edit="rd-3">Mantenimiento predictivo en equipos críticos y tableros integrados.</span></div>
+    <div class="st" style="background:var(--yellow);color:var(--navy)"><b>2030</b><span data-edit="rd-4">Sedes estándar SURA: accesibles, sostenibles y modulares.</span></div>
+    <div class="st" style="background:var(--navy)"><b>2031</b><span data-edit="rd-5">Regional referente en gestión inmobiliaria del sector.</span></div>
+   </div>
+   <div class="card" style="margin-top:18px"><h3>Indicadores de seguimiento propuestos</h3><p data-edit="rd-kpi">Costo por m², ocupación por sede, cumplimiento de mantenimiento preventivo, ANS de correctivos, consumo energético por m² y ejecución presupuestal de proyectos.</p></div>
+  </div>
+ </div>
+</div></div>
+
+<!-- MODAL IA -->
+<div class="modal" id="mIA"><div class="mbox">
+ <div class="mhead"><h2>IA, automatización y mejora de procesos</h2><button onclick="closeM()">✕</button></div>
+ <div class="mbody">
+  <div class="flow"><div>Dato en Excel / SAP</div><span>›</span><div>Automatización</div><span>›</span><div>Tablero web</div><span>›</span><div>Decisión</div></div>
+  <div class="ia">
+   <div class="card"><span class="tag">Tablero web</span><h3>Control de proyectos y pagos</h3><p data-edit="ia-1">Dashboard publicado en GitHub, Netlify y Supabase para seguir proyectos, presupuesto y pagos a proveedores, con carga de Excel/CSV y roles de administrador y visualizador.</p></div>
+   <div class="card"><span class="tag g">Gestión de proyectos</span><h3>Bitácora y checklist con Gantt</h3><p data-edit="ia-2">Checklist de proyectos con diagrama de Gantt por proyecto, autenticación y asignación de roles desde la base de datos.</p></div>
+   <div class="card"><span class="tag y">IA generativa</span><h3>Actas y comunicaciones con Copilot</h3><p data-edit="ia-3">Generación de minutas con resumen por participante, acuerdos y acciones por sede, además de correos técnicos e informes gerenciales.</p></div>
+   <div class="card"><span class="tag">Automatización</span><h3>Órdenes de compra desde Excel</h3><p data-edit="ia-4">Exploración de un programa que lea un Excel y genere las órdenes de compra en SAP. Estado: por confirmar.</p></div>
+   <div class="card"><span class="tag g">Reportes</span><h3>Informes HTML y PDF</h3><p data-edit="ia-5">Reportes interactivos de mantenimiento, HVAC e infraestructura generados con apoyo de IA.</p></div>
+   <div class="card" style="border-left-color:var(--grey)"><span class="tag" style="background:var(--grey)">Nuevo</span><h3 data-edit="ia-6t">Agregar desarrollo</h3><p data-edit="ia-6">Describa aquí otro desarrollo, el problema que resolvió y el resultado obtenido.</p></div>
+  </div>
+  <div class="grid2" style="margin-top:18px">
+   <div class="card"><h3>Beneficios observados</h3><p data-edit="ia-ben">Menos reprocesos, información centralizada, trazabilidad de pagos y proyectos, y respuestas más rápidas a los negocios.</p></div>
+   <div class="imgslot" data-img="img/vision/ia.jpg">Captura opcional del tablero<br>img/vision/ia.jpg</div>
+  </div>
+ </div>
+</div></div>
+
+<script src="data.js"></script>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const fmtM=v=>'$'+(v/1e6).toLocaleString('es-CO',{maximumFractionDigits:1})+' M';
+/* navegación */
+const slides=$$('section.slide');let cur=0;
+slides.forEach((_,i)=>{const b=document.createElement('button');b.onclick=()=>go(i);$('#dots').appendChild(b)});
+function go(i){if(i<0||i>=slides.length)return;slides[cur].classList.remove('on');cur=i;slides[cur].classList.add('on');$$('#dots button').forEach((b,j)=>b.classList.toggle('on',j==cur))}
+go(0);
+document.addEventListener('keydown',e=>{if(document.body.classList.contains('edit')&&document.activeElement.isContentEditable)return;if($('.modal.on')){if(e.key=='Escape')closeM();return}if(e.key=='ArrowRight'||e.key=='PageDown')go(cur+1);if(e.key=='ArrowLeft'||e.key=='PageUp')go(cur-1)});
+function openM(id){$('#'+id).classList.add('on');if(id=='mCifras')animBars()}
+function closeM(){$$('.modal').forEach(m=>m.classList.remove('on'))}
+$$('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target==m)closeM()}));
+/* imágenes opcionales */
+function tryImg(el,src){const im=new Image();im.onload=()=>{el.innerHTML='';el.appendChild(im)};im.src=src}
+$$('[data-img]').forEach(el=>tryImg(el,el.dataset.img));
+const logo=new Image();logo.onload=()=>{$('#logo').innerHTML='';$('#logo').appendChild(logo)};logo.src='img/logo-sura.png';
+/* ciudades */
+let city='Barranquilla',year='2026';
+Object.keys(CIUDADES).forEach(c=>{const d=document.createElement('div');d.className='city';d.textContent=c;d.onclick=()=>{city=c;renderCity()};$('#cities').appendChild(d)});
+['2024','2025','2026'].forEach(y=>{const b=document.createElement('button');b.textContent=y;b.onclick=()=>{year=y;renderCity()};$('#years').appendChild(b)});
+function renderCity(){const c=CIUDADES[city];$$('.city').forEach(d=>d.classList.toggle('on',d.textContent==city));$$('#years button').forEach(b=>b.classList.toggle('on',b.textContent==year));
+ const p=$('#cPhoto');p.innerHTML=`<div><b style="font-size:30px">${city}</b><br><span style="font-size:13px">Foto: ${c.foto}</span></div><div class="cap">${c.sedes}</div>`;
+ const im=new Image();im.onload=()=>{p.insertBefore(im,p.firstChild)};im.src=c.foto;
+ $('#tl').innerHTML=(c.hitos[year]||['Por completar']).map((h,i)=>`<li class="${h=='Por completar'?'pend':''}" data-edit="h-${city}-${year}-${i}">${h}</li>`).join('')+(year=='2026'?impCity(city):'');applyEdits()}
+function impCity(c){const a=AVISOS_IMPACTO.filter(r=>r[2]==c&&r[6]=='Completado').sort((x,y)=>y[3]-x[3]);if(!a.length)return'';const t=a.reduce((s,r)=>s+r[3],0);
+ return `<li style="background:#E6F7FA"><b>Mantenimiento de impacto 2026:</b> ${a.length} actividades completadas por ${fmtM(t)}.<br><span style="font-size:13px">${a.slice(0,4).map(r=>r[5].trim()+' ('+r[0]+')').join(' · ')}</span></li>`}
+renderCity();
+/* cifras */
+const P=PROYECTOS_2026,sum=(arr,i)=>arr.reduce((a,r)=>a+(r[i]||0),0),tot=sum(P,5);
+const grpBy=(arr,k,v)=>{const o={};arr.forEach(r=>o[r[k]]=(o[r[k]]||0)+(r[v]||0));return Object.entries(o).sort((a,b)=>b[1]-a[1])};
+const imAp=sum(IMPACTO_2026,3),imEj=sum(IMPACTO_2026,4);
+$('#cProj').textContent=P.length;$('#cImp').textContent=(imEj/imAp*100).toFixed(0)+'%';$('#cVal').textContent=fmtM(tot);
+$('#kTot').textContent=fmtM(tot);$('#kN').textContent=P.length;$('#kPag').textContent=fmtM(PAGOS_2026.obras_pagado);$('#kPen').textContent=fmtM(PAGOS_2026.obras_pendiente);
+const cols=['#002F6C','#00AEC7','#96C676','#E5EB10','#8EAFEF','#BDBDBD'];
+function bars(id,arr){const m=Math.max(...arr.map(e=>e[1]));$(id).innerHTML=arr.map((e,i)=>`<div class="bar"><span>${e[0]}</span><div class="tr"><div class="fl" data-w="${e[1]/m*100}" style="background:${cols[i%6]}"></div></div><span class="v">${fmtM(e[1])}</span></div>`).join('')}
+bars('#gCity',grpBy(P,3,5));bars('#gCia',grpBy(P,2,5));bars('#gAn',grpBy(P,1,5));
+bars('#gPay',[['Obras pagado',PAGOS_2026.obras_pagado],['Obras pendiente',PAGOS_2026.obras_pendiente],['Generales pagado',PAGOS_2026.generales.Pago||0],['Generales pendiente',PAGOS_2026.generales.Pendiente||0]]);
+/* impacto */
+$('#iAp').textContent=fmtM(imAp);$('#iEj').textContent=fmtM(imEj);$('#iPc').textContent=(imEj/imAp*100).toFixed(1)+'%';$('#iAv').textContent=AVISOS_IMPACTO.length;
+(()=>{const o={};IMPACTO_2026.forEach(r=>{o[r[2]]=o[r[2]]||[0,0];o[r[2]][0]+=r[3];o[r[2]][1]+=r[4]});const e=Object.entries(o).sort((a,b)=>b[1][0]-a[1][0]),m=e[0][1][0];
+ $('#gImpCity').innerHTML=e.map(([c,[ap,ej]])=>`<div class="bar"><span>${c}</span><div class="tr" style="position:relative"><div class="fl" data-w="${ap/m*100}" style="background:#BDBDBD;position:absolute;top:0;left:0"></div><div class="fl" data-w="${Math.min(ej,ap*1.2)/m*100}" style="background:#00AEC7;position:absolute;top:5px;left:0;height:10px"></div></div><span class="v">${fmtM(ej)} / ${fmtM(ap)}</span></div>`).join('')+'<p class="note">Gris: presupuesto · Turquesa: ejecutado</p>'})();
+(()=>{const o={};AVISOS_IMPACTO.forEach(r=>o[r[6]]=(o[r[6]]||0)+1);const e=Object.entries(o).sort((a,b)=>b[1]-a[1]),m=e[0][1],c={'Completado':'#96C676','En ejecucion':'#00AEC7','Formalizacion':'#8EAFEF','Cotizacion':'#E5EB10','Sin iniciar':'#BDBDBD'};
+ $('#gEst').innerHTML=e.map(([k,v])=>`<div class="bar"><span>${k}</span><div class="tr"><div class="fl" data-w="${v/m*100}" style="background:${c[k]||'#002F6C'}"></div></div><span class="v">${v} act.</span></div>`).join('')})();
+$('#tbImp').innerHTML=IMPACTO_2026.slice().sort((a,b)=>b[4]-a[4]).map(r=>`<tr><td>${r[0]}</td><td>${r[2]}</td><td>${r[1]}</td><td class="n">$${r[3].toLocaleString('es-CO')}</td><td class="n">$${r[4].toLocaleString('es-CO')}</td><td class="n" style="color:${r[4]>r[3]?'#c00':'inherit'}">${r[3]?(r[4]/r[3]*100).toFixed(0)+'%':'–'}</td><td>${r[5]}</td></tr>`).join('');
+[...new Set(AVISOS_IMPACTO.map(r=>r[2]))].sort().forEach(c=>$('#aCity').add(new Option(c,c)));[...new Set(AVISOS_IMPACTO.map(r=>r[6]))].forEach(c=>$('#aEst').add(new Option(c,c)));
+function renderAv(){const q=$('#aTxt').value.toLowerCase(),c=$('#aCity').value,e=$('#aEst').value;
+ $('#tbAv').innerHTML=AVISOS_IMPACTO.filter(r=>(!c||r[2]==c)&&(!e||r[6]==e)&&r.join(' ').toLowerCase().includes(q)).sort((a,b)=>b[3]-a[3]).map(r=>`<tr><td>${r[4]||'–'}</td><td>${r[5]}</td><td>${r[0]}</td><td>${r[2]}</td><td class="n">$${r[3].toLocaleString('es-CO')}</td><td>${r[6]}</td><td class="n">${Math.round(r[7]*100)}%</td><td>${r[8]}</td></tr>`).join('')}
+renderAv();
+/* presupuesto operativo */
+const oA=Object.entries(PPTO_NORTE.area),oT=oA.reduce((a,e)=>a+e[1],0);
+$('#oTot').textContent=fmtM(oT);$('#oMan').textContent=fmtM(PPTO_NORTE.area['Mantenimiento']||0);$('#oSp').textContent=fmtM(PPTO_NORTE.area['Servicios públicos']||0);$('#oLin').textContent=PPTO_NORTE.lineas;
+bars('#gArea',oA);bars('#gOCia',Object.entries(PPTO_NORTE.compania));
+function animBars(){$$('#mCifras .fl').forEach(f=>f.style.width=0);setTimeout(()=>$$('#mCifras .tabc.on .fl').forEach(f=>f.style.width=f.dataset.w+'%'),60)}
+$$('#ctabs button').forEach(b=>b.onclick=()=>{$$('#ctabs button').forEach(x=>x.classList.remove('on'));b.classList.add('on');$$('#mCifras .tabc').forEach(t=>t.classList.toggle('on',t.id==b.dataset.t));animBars()});
+[...new Set(P.map(r=>r[3]))].forEach(c=>$('#fCity').add(new Option(c,c)));[...new Set(P.map(r=>r[2]))].forEach(c=>$('#fCia').add(new Option(c,c)));
+let sk=5,sd=-1;function sortBy(k){sd=sk==k?-sd:-1;sk=k;renderTable()}
+const money=v=>'$'+(v||0).toLocaleString('es-CO');
+function renderTable(){const q=$('#fTxt').value.toLowerCase(),fc=$('#fCity').value,fi=$('#fCia').value;
+ $('#tb').innerHTML=P.filter(r=>(!fc||r[3]==fc)&&(!fi||r[2]==fi)&&r.join(' ').toLowerCase().includes(q)).sort((a,b)=>(a[sk]>b[sk]?1:-1)*sd).map(r=>`<tr><td>${r[0]}</td><td>${r[4]}</td><td>${r[3]}</td><td>${r[2]}</td><td>${r[1]}</td><td class="n">${money(r[5])}</td><td class="n">${money(r[6])}</td><td class="n">${money(r[7])}</td></tr>`).join('')}
+renderTable();
+/* visión tabs */
+$$('#vtabs button').forEach(b=>b.onclick=()=>{$$('#vtabs button').forEach(x=>x.classList.remove('on'));b.classList.add('on');$$('#mVision .tabc').forEach(t=>t.classList.toggle('on',t.id==b.dataset.t))});
+/* video */
+function setYT(u){const m=(u||'').match(/(?:v=|youtu\.be\/|embed\/)([\w-]{11})/);if(m)$('#vframe').innerHTML=`<iframe src="https://www.youtube.com/embed/${m[1]}" allowfullscreen allow="autoplay; encrypted-media"></iframe>`}
+if(VIDEO.youtube)setYT(VIDEO.youtube);else{const v=document.createElement('video');v.controls=true;v.src=VIDEO.local;v.onloadeddata=()=>{$('#vframe').innerHTML='';$('#vframe').appendChild(v)};v.load()}
+/* edición */
+function ed(){return JSON.parse(localStorage.getItem('rn-edits')||'{}')}
+function applyEdits(){const e=ed();$$('[data-edit]').forEach(el=>{if(e[el.dataset.edit]!=null)el.innerHTML=e[el.dataset.edit];el.contentEditable=document.body.classList.contains('edit');el.oninput=()=>{const x=ed();x[el.dataset.edit]=el.innerHTML;localStorage.setItem('rn-edits',JSON.stringify(x))}})}
+function toggleEdit(){document.body.classList.toggle('edit');$('#bEdit').textContent=document.body.classList.contains('edit')?'✅ Terminar edición':'✏️ Modo edición';applyEdits()}
+function resetEdits(){if(confirm('¿Borrar los textos editados en este navegador?')){localStorage.removeItem('rn-edits');location.reload()}}
+function downloadHTML(){const c=document.documentElement.cloneNode(true);c.querySelector('body').classList.remove('edit');c.querySelectorAll('[contenteditable]').forEach(e=>e.removeAttribute('contenteditable'));
+ c.querySelectorAll('[data-img] img,#cPhoto img,#logo img,#vframe *').forEach(e=>e.remove());
+ const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['<!DOCTYPE html>\n'+c.outerHTML],{type:'text/html'}));a.download='index.html';a.click()}
+applyEdits();
+</script>
+</body>
+</html>
