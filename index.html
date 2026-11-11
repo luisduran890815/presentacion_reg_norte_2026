@@ -35,6 +35,62 @@ h1{font-size:46px;color:var(--navy)}h2{font-size:30px;color:var(--navy);margin-b
 .cover .band p{color:#BFEAF0;font-size:20px}
 .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
 .chip{background:var(--cyan);color:#fff;border-radius:20px;padding:7px 14px;font-weight:bold;font-size:14px}
+.map-btn{background:var(--cyan);color:#fff;border:0;border-radius:24px;padding:11px 28px;font:bold 16px Arial;cursor:pointer;box-shadow:0 4px 12px #001c4540;transition:.2s}
+.map-btn:hover{transform:translateY(-2px);background:#00bfd9}
+.map-image{width:100%;height:auto;display:block;border-radius:16px}
+.map-stage{position:relative;border-radius:16px;overflow:hidden;background:#eaf8fb}
+.map-city-hotspot{position:absolute;transform:translate(-50%,-50%);z-index:2;display:block;padding:0;border:0;background:transparent;color:transparent;font-size:0;line-height:0;cursor:pointer;box-shadow:none;border-radius:8px;-webkit-tap-highlight-color:transparent;transition:background-color .18s,box-shadow .18s}
+.map-city-hotspot:hover{background:rgba(0,174,199,.12);box-shadow:0 0 0 2px rgba(0,47,108,.28)}
+.map-city-hotspot:focus-visible{outline:3px solid #00AEC7;outline-offset:2px;background:rgba(255,255,255,.16)}
+/* Áreas transparentes alineadas con las etiquetas originales integradas en el PNG */
+.map-city-hotspot.cartagena{left:34.1%;top:34%;width:12%;height:5%}.map-city-hotspot.barranquilla{left:42.6%;top:23.6%;width:12%;height:5%}.map-city-hotspot.santa-marta{left:57.6%;top:14.8%;width:12%;height:5%}
+.map-city-hotspot.monteria{left:28%;top:51.4%;width:9%;height:5%}.map-city-hotspot.valledupar{left:65.7%;top:32.3%;width:10%;height:5%}.map-city-hotspot.bucaramanga{left:60%;top:78.5%;width:12%;height:5%}.map-city-hotspot.cucuta{left:71.5%;top:56.4%;width:8.5%;height:5%}
+.map-help{margin:12px 2px 0;color:#666;font-size:13px;text-align:center}
+.city-modal{z-index:60}
+.city-intro{display:flex;align-items:center;justify-content:space-between;gap:16px;background:#eaf8fb;border-left:5px solid var(--cyan);border-radius:12px;padding:14px 16px;margin-bottom:16px}
+.city-intro b{color:var(--navy);font-size:16px}.city-intro span{font-size:13px;color:#52657d}
+.business-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.business-card{background:var(--lg);border-radius:14px;padding:16px;border-top:5px solid var(--cyan);min-height:145px}
+.business-card:nth-child(2){border-color:var(--green)}.business-card:nth-child(3){border-color:var(--yellow)}.business-card:nth-child(4){border-color:var(--lb)}.business-card:nth-child(5){border-color:var(--navy)}.business-card:nth-child(6){border-color:var(--grey)}
+.business-card h3{color:var(--navy);font-size:15px;margin-bottom:10px}.business-card ul{padding-left:18px}.business-card li{font-size:13px;line-height:1.4;margin-bottom:6px}
+.business-card .empty{color:#777;font-size:13px;font-style:italic;line-height:1.45}
+.future-panel{min-height:230px;display:grid;place-items:center;text-align:center;background:linear-gradient(135deg,#f4f7fb,#e7f7f9);border:2px dashed var(--lb);border-radius:16px;padding:28px;color:#62748a}
+.future-panel b{display:block;color:var(--navy);font-size:20px;margin-bottom:8px}
+.city-projection-pot{background:linear-gradient(145deg,#f7fbff,#eef8f9);border:1px solid #d8e8ef;border-radius:18px;padding:18px}
+.projection-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:14px}
+.projection-heading h3{color:var(--navy);font-size:20px;margin:0}.projection-heading p{font-size:12px;color:#68798d;text-align:right}
+.projection-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.projection-card{position:relative;overflow:hidden;background:#fff;border-radius:14px;padding:15px 16px 14px 18px;min-height:116px;border:1px solid #e0e8ef;box-shadow:0 4px 12px #002f6c0d}
+.projection-card:before{content:"";position:absolute;inset:0 auto 0 0;width:5px;background:var(--cyan)}
+.projection-card:nth-child(2):before{background:var(--green)}.projection-card:nth-child(3):before{background:var(--lb)}.projection-card:nth-child(4):before{background:var(--navy)}
+.projection-card .pc-top{display:flex;align-items:center;gap:9px;margin-bottom:8px}.projection-card .pc-num{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#e7f7f9;color:var(--navy);font-size:11px;font-weight:900;flex:none}
+.projection-card h4{color:var(--navy);font-size:14px}.projection-card p{font-size:12.5px;line-height:1.38;color:#4c6078}
+.projection-card strong{color:var(--navy)}
+.sura-reading{margin-top:13px;background:var(--navy);color:#fff;border-radius:13px;padding:13px 16px;font-size:13px;line-height:1.42;box-shadow:0 4px 12px #002f6c26}.sura-reading b{color:#bfeaf0}
+/* proyección poblacional DANE 2025–2042 · información estática */
+.population-card{margin:0 0 14px;background:#fff;border:1px solid #dbe6ee;border-radius:15px;padding:15px 16px 13px;box-shadow:0 4px 12px #002f6c0d;position:relative;overflow:hidden}
+.population-card:before{content:"";position:absolute;inset:0 auto 0 0;width:5px;background:var(--cyan)}
+.population-card.positive:before{background:#5b8f3a}.population-card.negative:before{background:#d5665a}.population-card.stable:before{background:var(--lb)}
+.population-kicker{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:11px;color:var(--navy);font-size:11px;font-weight:900;letter-spacing:.9px;text-transform:uppercase}
+.population-kicker span{color:#68798d;font-weight:700;letter-spacing:.3px;text-transform:none}
+.population-main{display:grid;grid-template-columns:minmax(130px,1fr) minmax(80px,.7fr) minmax(130px,1fr) minmax(160px,1.15fr);gap:12px;align-items:center}
+.population-point{background:#f5f8fb;border-radius:11px;padding:10px 12px}.population-point .year{display:block;color:#68798d;font-size:10px;font-weight:800;letter-spacing:.8px}.population-point strong{display:block;color:var(--navy);font-size:22px;line-height:1.15;margin-top:2px}
+.population-arrow{text-align:center;color:var(--cyan);font-size:25px;font-weight:900}.population-change{border-left:1px solid #e2e9ef;padding-left:14px}.population-change .values{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:7px}.population-change b{font-size:13px;color:var(--navy)}
+.population-trend{display:inline-flex;align-items:center;gap:6px;border-radius:14px;padding:5px 9px;font-size:11px;font-weight:800;background:#eaf8fb;color:var(--navy)}.population-card.positive .population-trend{background:#eaf4e5;color:#356a26}.population-card.negative .population-trend{background:#fff0ed;color:#9a3f36}.population-card.stable .population-trend{background:#edf2fb;color:#48678d}
+.population-source{border-top:1px solid #e7edf2;margin-top:10px;padding-top:8px;color:#65758a;font-size:10.5px;line-height:1.35}.population-source b{color:var(--navy)}
+/* gestión del riesgo por ciudad */
+.city-risk-panel{background:linear-gradient(145deg,#f7fbff,#eef8f9);border:1px solid #d8e8ef;border-radius:18px;padding:18px}
+.risk-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:14px}
+.risk-heading h3{color:var(--navy);font-size:20px;margin:0}.risk-heading p{font-size:12px;color:#68798d;text-align:right}
+.risk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.risk-card{position:relative;overflow:hidden;background:#fff;border-radius:14px;padding:15px 16px 14px 18px;min-height:205px;border:1px solid #e0e8ef;box-shadow:0 4px 12px #002f6c0d}
+.risk-card:before{content:"";position:absolute;inset:0 auto 0 0;width:5px;background:var(--cyan)}
+.risk-card:nth-child(2):before{background:var(--yellow)}.risk-card:nth-child(3):before{background:var(--green)}
+.risk-card .risk-top{display:flex;align-items:center;gap:9px;margin-bottom:10px}.risk-card .risk-num{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#e7f7f9;color:var(--navy);font-size:11px;font-weight:900;flex:none}
+.risk-card h4{color:var(--navy);font-size:14px;line-height:1.25}.risk-item{border-top:1px solid #e7edf2;padding-top:8px;margin-top:8px}
+.risk-item b{display:block;color:var(--cyan);font-size:10px;letter-spacing:.8px;text-transform:uppercase;margin-bottom:3px}.risk-item p{font-size:12.5px;line-height:1.38;color:#4c6078}
+.project-criterion{margin-top:13px;background:var(--navy);color:#fff;border-radius:13px;padding:13px 16px;font-size:13px;line-height:1.42;box-shadow:0 4px 12px #002f6c26}.project-criterion b{color:#bfeaf0}
+
 .cover .side{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .stat{background:var(--lg);border-radius:16px;padding:22px}
 .stat b{display:block;font-size:34px;color:var(--navy)}
@@ -70,7 +126,7 @@ h1{font-size:46px;color:var(--navy)}h2{font-size:30px;color:var(--navy);margin-b
 .tl li:before{content:"";position:absolute;left:-27px;top:15px;width:13px;height:13px;border-radius:50%;background:var(--navy);border:3px solid #fff}
 .tl li.pend{border:1px dashed var(--grey);background:#fff;color:#888}
 /* video */
-.vbox{background:var(--lg);border-radius:18px;padding:20px;display:grid;grid-template-columns:2fr 1fr;gap:20px}
+.vbox{background:var(--lg);border-radius:18px;padding:20px;display:grid;grid-template-columns:1fr;gap:20px}
 .vframe{aspect-ratio:16/9;background:#000;border-radius:12px;overflow:hidden;display:grid;place-items:center;color:#fff}
 .vframe iframe,.vframe video{width:100%;height:100%;border:0}
 input[type=text]{width:100%;padding:10px;border:1px solid var(--grey);border-radius:8px;font:14px Arial;margin:8px 0}
@@ -137,7 +193,8 @@ body.edit [data-edit]{outline:2px dashed var(--cyan);outline-offset:3px;backgrou
 body.edit [data-edit]:focus{outline-color:var(--navy)}
 .editbar{position:fixed;left:22px;bottom:16px;z-index:30;display:none;gap:8px}
 body.edit .editbar{display:flex}
-@media(max-width:1000px){section.slide{padding:24px 18px 80px}.tools{top:auto;bottom:60px;right:10px;flex-direction:row}.cities{grid-template-columns:repeat(4,1fr)}.cdet,.grid2,.vis-hero,.ia,.pillars{grid-template-columns:1fr}.kpis,.princ,.road{grid-template-columns:1fr 1fr}.cover{flex-direction:column}.lvl{flex-direction:column}.hline{display:none}}
+@media(max-width:1000px){.population-main{grid-template-columns:1fr auto 1fr}.population-change{grid-column:1/-1;border-left:0;border-top:1px solid #e2e9ef;padding:10px 0 0}section.slide{padding:24px 18px 80px}.tools{top:auto;bottom:60px;right:10px;flex-direction:row}.cities{grid-template-columns:repeat(4,1fr)}.cdet,.grid2,.vis-hero,.ia,.pillars{grid-template-columns:1fr}.kpis,.princ,.road{grid-template-columns:1fr 1fr}.cover{flex-direction:column}.lvl{flex-direction:column}.hline{display:none}.business-grid{grid-template-columns:1fr 1fr}.risk-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){.population-kicker{align-items:flex-start;flex-direction:column;gap:3px}.population-point strong{font-size:18px}.population-main{gap:7px}.business-grid,.projection-grid,.risk-grid{grid-template-columns:1fr}.projection-heading,.risk-heading{align-items:flex-start;flex-direction:column;gap:4px}.projection-heading p,.risk-heading p{text-align:left}.city-intro{align-items:flex-start;flex-direction:column}.mhead{padding:14px 16px}.mhead h2{font-size:22px}.mbody{padding:18px}}
 @media print{.tools,nav,.arrow,.editbar{display:none}}
 /* ===== CARRUSEL DE SEDES ===== */
 .photo .slides{position:absolute;inset:0}
@@ -185,7 +242,7 @@ body.edit .editbar{display:flex}
    <div class="kicker" style="color:#BFEAF0">Seguros SURA Colombia</div>
    <h1 data-edit="cov-t">Gestión Administrativa<br>Regional Norte</h1>
    <p data-edit="cov-s">Infraestructura, mantenimiento y proyectos que hacen posible la operación de nuestras sedes.</p>
-   <div class="chips"><span class="chip">Barranquilla</span><span class="chip">Cartagena</span><span class="chip">Bucaramanga</span><span class="chip">Cúcuta</span><span class="chip">Santa Marta</span><span class="chip">Montería</span><span class="chip">Valledupar</span></div>
+   <div class="chips"><button class="map-btn" type="button" onclick="openM('mMapa')">Mapa</button></div>
   </div>
   <div class="side">
    <div class="stat"><b>7</b>ciudades principales</div>
@@ -250,15 +307,11 @@ body.edit .editbar{display:flex}
 <!-- 4 VIDEO -->
 <section class="slide">
  <div class="kicker">Multimedia</div>
- <h2>Video de la Regional</h2>
- <p class="sub" data-edit="vid-s">Un recorrido por nuestras sedes y proyectos.</p>
+ <h2>Interacción de la cadena de valor</h2>
+ <p class="sub" data-edit="vid-s">Cómo Gestión Administrativa conecta capacidades y aporta valor a las unidades de negocio.</p>
  <div class="vbox">
-  <div class="vframe" id="vframe">Sin video cargado</div>
-  <div>
-   <h3 style="color:var(--navy)">Cargar video</h3>
-   <p style="font-size:13px;margin-top:8px">Pega un enlace de YouTube para probarlo. Para dejarlo fijo en Netlify, edita <b>data.js</b> o sube <b>video/presentacion.mp4</b>.</p>
-   <input type="text" id="yt" placeholder="https://www.youtube.com/watch?v=...">
-   <button class="btn" onclick="setYT(document.getElementById('yt').value)">Mostrar video</button>
+  <div class="vframe" id="vframe">
+   <video controls playsinline preload="metadata" src="video/presentacion.mov">Tu navegador no puede reproducir este video.</video>
   </div>
  </div>
 </section>
@@ -276,6 +329,46 @@ body.edit .editbar{display:flex}
 <button class="arrow" id="prev" onclick="go(cur-1)">‹</button>
 <button class="arrow" id="next" onclick="go(cur+1)">›</button>
 <nav class="dots" id="dots"></nav>
+
+<!-- MODAL MAPA REGIONAL -->
+<div class="modal" id="mMapa"><div class="mbox">
+ <div class="mhead"><h2>Mapa · Regional Norte</h2><button onclick="closeM()">✕</button></div>
+ <div class="mbody" style="padding:18px">
+  <div class="map-stage">
+   <img class="map-image" src="img/mapa_regional_norte.png" alt="Mapa Regional Norte · Región Caribe y Santanderes">
+   <button class="map-city-hotspot cartagena" type="button" onclick="openCityInfo('Cartagena')" aria-label="Abrir información de Cartagena" title="Cartagena"></button>
+   <button class="map-city-hotspot barranquilla" type="button" onclick="openCityInfo('Barranquilla')" aria-label="Abrir información de Barranquilla" title="Barranquilla"></button>
+   <button class="map-city-hotspot santa-marta" type="button" onclick="openCityInfo('Santa Marta')" aria-label="Abrir información de Santa Marta" title="Santa Marta"></button>
+   <button class="map-city-hotspot monteria" type="button" onclick="openCityInfo('Montería')" aria-label="Abrir información de Montería" title="Montería"></button>
+   <button class="map-city-hotspot valledupar" type="button" onclick="openCityInfo('Valledupar')" aria-label="Abrir información de Valledupar" title="Valledupar"></button>
+   <button class="map-city-hotspot bucaramanga" type="button" onclick="openCityInfo('Bucaramanga')" aria-label="Abrir información de Bucaramanga" title="Bucaramanga"></button>
+   <button class="map-city-hotspot cucuta" type="button" onclick="openCityInfo('Cúcuta')" aria-label="Abrir información de Cúcuta" title="Cúcuta"></button>
+  </div>
+  <p class="map-help">Selecciona una ciudad para consultar sus sedes y las nuevas secciones de planeación.</p>
+ </div>
+</div></div>
+
+<!-- MODAL INFORMACIÓN DE CIUDAD -->
+<div class="modal city-modal" id="mCiudad" role="dialog" aria-modal="true" aria-labelledby="cityModalTitle"><div class="mbox">
+ <div class="mhead"><h2 id="cityModalTitle">Ciudad</h2><button type="button" onclick="closeCity()" aria-label="Cerrar información de la ciudad">✕</button></div>
+ <div class="mbody">
+  <div class="tabs" id="cityTabs">
+   <button class="on" type="button" data-t="citySedes">Sedes por unidad de negocio</button>
+   <button type="button" data-t="cityProjection">Proyección de la ciudad</button>
+   <button type="button" data-t="cityRisk">Gestión del Riesgo</button>
+  </div>
+  <div class="tabc on" id="citySedes">
+   <div class="city-intro" id="citySummary"></div>
+   <div class="business-grid" id="cityBusinessGroups"></div>
+  </div>
+  <div class="tabc" id="cityProjection">
+   <div id="cityProjectionContent"><div class="future-panel"><div><b>Proyección de la ciudad</b>Contenido pendiente por definir.</div></div></div>
+  </div>
+  <div class="tabc" id="cityRisk">
+   <div id="cityRiskContent"><div class="future-panel"><div><b>Gestión del Riesgo</b>Contenido pendiente por definir.</div></div></div>
+  </div>
+ </div>
+</div></div>
 
 <!-- MODAL CIFRAS -->
 <div class="modal" id="mCifras"><div class="mbox">
@@ -479,10 +572,11 @@ const slides=$$('section.slide');let cur=0;
 slides.forEach((_,i)=>{const b=document.createElement('button');b.onclick=()=>go(i);$('#dots').appendChild(b)});
 function go(i){if(i<0||i>=slides.length)return;slides[cur].classList.remove('on');cur=i;slides[cur].classList.add('on');$$('#dots button').forEach((b,j)=>b.classList.toggle('on',j==cur))}
 go(0);
-document.addEventListener('keydown',e=>{if(document.body.classList.contains('edit')&&document.activeElement.isContentEditable)return;if($('.modal.on')){if(e.key=='Escape')closeM();return}if(e.key=='ArrowRight'||e.key=='PageDown')go(cur+1);if(e.key=='ArrowLeft'||e.key=='PageUp')go(cur-1)});
+document.addEventListener('keydown',e=>{if(document.body.classList.contains('edit')&&document.activeElement.isContentEditable)return;if($('.modal.on')){if(e.key=='Escape'){if($('#mCiudad').classList.contains('on'))closeCity();else closeM()}return}if(e.key=='ArrowRight'||e.key=='PageDown')go(cur+1);if(e.key=='ArrowLeft'||e.key=='PageUp')go(cur-1)});
 function openM(id){$('#'+id).classList.add('on');if(id=='mCifras')animBars()}
 function closeM(){$$('.modal').forEach(m=>m.classList.remove('on'))}
-$$('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target==m)closeM()}));
+function closeCity(){$('#mCiudad').classList.remove('on')}
+$$('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target==m){if(m.id=='mCiudad')closeCity();else closeM()}}));
 /* imágenes opcionales */
 function tryImg(el,src){const im=new Image();im.onload=()=>{el.innerHTML='';el.appendChild(im)};im.src=src}
 $$('[data-img]').forEach(el=>tryImg(el,el.dataset.img));
@@ -515,6 +609,218 @@ let sede='',cia='';
 const SD=(typeof SEDES!=='undefined'?SEDES:[]);
 const ciasDe=s=>{const o=new Set(s.cia||[]);IMPACTO_2026.forEach(r=>{if((s.impacto||[]).includes(r[0]))o.add(r[1])});PROYECTOS_2026.forEach(r=>{if((s.proyectos||[]).includes(r[8]))o.add(r[2])});return[...o]};
 SD.forEach(s=>s._cias=ciasDe(s));
+/* ===== INFORMACIÓN DE CIUDAD DESDE LAS SEDES EXISTENTES ===== */
+const CITY_UNITS=[
+ {nombre:'Seguros generales',claves:['Sura Generales']},
+ {nombre:'Ayudas Diagnósticas',claves:['Ayudas Diagnosticas']},
+ {nombre:'EPS',claves:['EPS Sura']},
+ {nombre:'Servicios generales',claves:['Servicios Generales','CGR','Operaciones Ge Suramericana']},
+ {nombre:'IPS',claves:['IPS Sura']},
+ {nombre:'ARL',claves:['ARL','ARL Sura']}
+];
+function setCityTab(id){$$('#cityTabs button').forEach(b=>b.classList.toggle('on',b.dataset.t==id));$$('#mCiudad .tabc').forEach(t=>t.classList.toggle('on',t.id==id))}
+$$('#cityTabs button').forEach(b=>b.onclick=()=>setCityTab(b.dataset.t));
+const CITY_POPULATION={
+ 'Barranquilla':{p2025:'1.279.344',p2042:'1.188.753',abs:'−90.591 habitantes',pct:'−7,1 %',trend:'Contracción sostenida',tone:'negative',icon:'↘'},
+ 'Cartagena':{p2025:'1.011.520',p2042:'974.086',abs:'−37.434 habitantes',pct:'−3,7 %',trend:'Descenso gradual',tone:'negative',icon:'↘'},
+ 'Bucaramanga':{p2025:'617.659',p2042:'610.880',abs:'−6.779 habitantes',pct:'−1,1 %',trend:'Prácticamente estable',tone:'stable',icon:'→'},
+ 'Cúcuta':{p2025:'793.211',p2042:'752.748',abs:'−40.463 habitantes',pct:'−5,1 %',trend:'Contracción moderada',tone:'negative',icon:'↘'},
+ 'Santa Marta':{p2025:'582.394',p2042:'643.372',abs:'+60.978 habitantes',pct:'+10,5 %',trend:'Crecimiento moderado',tone:'positive',icon:'↗'},
+ 'Valledupar':{p2025:'615.987',p2042:'813.654',abs:'+197.667 habitantes',pct:'+32,1 %',trend:'Crecimiento fuerte',tone:'positive',icon:'↗'},
+ 'Montería':{p2025:'574.570',p2042:'725.608',abs:'+151.038 habitantes',pct:'+26,3 %',trend:'Crecimiento fuerte',tone:'positive',icon:'↗'}
+};
+function renderPopulationProjection(nombreCiudad){
+ const d=CITY_POPULATION[nombreCiudad];if(!d)return'';
+ return `<article class="population-card ${d.tone}" role="group" aria-label="Proyección poblacional DANE de ${nombreCiudad}, 2025 a 2042">
+  <div class="population-kicker">Población proyectada <span>Horizonte 2025–2042</span></div>
+  <div class="population-main">
+   <div class="population-point"><span class="year">2025</span><strong>${d.p2025}</strong></div>
+   <div class="population-arrow" aria-hidden="true">→</div>
+   <div class="population-point"><span class="year">2042</span><strong>${d.p2042}</strong></div>
+   <div class="population-change"><div class="values"><b>${d.abs}</b><b>· ${d.pct}</b></div><span class="population-trend"><span aria-hidden="true">${d.icon}</span>${d.trend}</span></div>
+  </div>
+  <div class="population-source"><b>Fuente:</b> DANE, Proyecciones de Población y Estudios Demográficos — CNPV 2018, actualización pos-COVID-19. Serie municipal 2018–2042; población total municipal.</div>
+ </article>`;
+}
+function renderCityProjection(nombreCiudad){
+ const cont=$('#cityProjectionContent');
+ if(nombreCiudad=='Barranquilla'){
+  cont.innerHTML=`<section class="city-projection-pot" aria-label="Proyección urbana de Barranquilla según el POT">
+   <div class="projection-heading"><h3>Barranquilla · Proyección urbana según POT</h3><p>Lectura ejecutiva del modelo territorial</p></div>
+   ${renderPopulationProjection(nombreCiudad)}
+   <div class="projection-grid">
+    <article class="projection-card"><div class="pc-top"><span class="pc-num">01</span><h4>Crecimiento compacto</h4></div><p>Prioriza densificación, renovación y continuidad urbana, articuladas con infraestructura, servicios y espacio público.</p></article>
+    <article class="projection-card"><div class="pc-top"><span class="pc-num">02</span><h4>Expansión planificada</h4></div><p><strong>2.864 ha</strong> de suelo de expansión para vivienda, equipamientos y actividad productiva, incorporadas mediante planificación.</p></article>
+    <article class="projection-card"><div class="pc-top"><span class="pc-num">03</span><h4>Río y competitividad</h4></div><p>El Magdalena impulsa renovación, logística y servicios, reforzando la integración portuaria y la proyección económica.</p></article>
+    <article class="projection-card"><div class="pc-top"><span class="pc-num">04</span><h4>Movilidad y nuevas centralidades</h4></div><p>Corredores, transporte y centralidades distribuyen actividad y acercan servicios a nuevos focos urbanos.</p></article>
+   </div>
+   <div class="sura-reading"><b>Lectura para SURA:</b> anticipar la localización futura de servicios frente al crecimiento urbano, nuevas centralidades y cambios en la demanda territorial.</div>
+  </section>`;
+  return;
+ }
+ if(nombreCiudad=='Cartagena'){
+  cont.innerHTML=`<section class="city-projection-pot" aria-label="Proyección urbana de Cartagena según el POT">
+   <div class="projection-heading"><h3>Cartagena · Proyección urbana según POT</h3><p>Lectura ejecutiva del modelo territorial</p></div>
+   ${renderPopulationProjection(nombreCiudad)}
+   <div class="projection-grid">
+    <article class="projection-card"><div class="pc-top"><span class="pc-num">01</span><h4>Expansión planificada</h4></div><p>Crecimiento hacia la <strong>Ciénaga de la Virgen y Zona Norte</strong>, con aproximadamente <strong>1.100 ha</strong> de suelo de expansión.</p></article>
+    <article class="projection-card"><div class="pc-top"><span class="pc-num">02</span><h4>Ciénaga como eje</h4></div><p>La Ciénaga de la Virgen articula la ciudad futura como paisaje estratégico de crecimiento y protección ambiental.</p></article>
+    <article class="projection-card"><div class="pc-top"><span class="pc-num">03</span><h4>Nuevas centralidades</h4></div><p>Centralidades urbanas, rurales y de expansión impulsan una ciudad más descentralizada y <strong>policéntrica</strong>.</p></article>
+    <article class="projection-card"><div class="pc-top"><span class="pc-num">04</span><h4>Turismo, puerto e industria</h4></div><p>Consolida estas vocaciones y proyecta aproximadamente <strong>400 ha</strong> de expansión industrial en Mamonal.</p></article>
+   </div>
+   <div class="sura-reading"><b>Lectura para SURA:</b> anticipar la demanda futura de servicios hacia Zona Norte, Ciénaga de la Virgen y nuevas centralidades, evaluando ubicación, capacidad y accesibilidad de las sedes.</div>
+  </section>`;
+  return;
+ }
+ if(nombreCiudad=='Bucaramanga'){
+  cont.innerHTML=`<section class="city-projection-pot" aria-label="Proyección urbana de Bucaramanga según el POT">
+   <div class="projection-heading"><h3>Bucaramanga · Proyección urbana según POT</h3><p>Lectura ejecutiva del modelo territorial</p></div>
+   ${renderPopulationProjection(nombreCiudad)}
+   <div class="projection-grid">
+    <article class="projection-card"><div class="pc-top"><span class="pc-num">01</span><h4>Ciudad densa y compacta</h4></div><p>Prioriza la <strong>densificación y renovación urbana</strong>, controlando la ocupación de bordes vulnerables y equilibrando construcción con espacio público.</p></article>
+    <article class="projection-card"><div class="pc-top"><span class="pc-num">02</span><h4>Expansión controlada</h4></div><p>Cerca de <strong>168 ha de expansión urbana</strong>, con nuevos suelos para vivienda y mejoramiento de sectores periféricos.</p></article>
+    <article class="projection-card"><div class="pc-top"><span class="pc-num">03</span><h4>Centralidades y visión metropolitana</h4></div><p>Fortalece su papel como núcleo económico y de servicios mediante una red de centralidades e integración regional.</p></article>
+    <article class="projection-card"><div class="pc-top"><span class="pc-num">04</span><h4>Movilidad y espacio público</h4></div><p>Integra infraestructura vial, transporte multimodal, ciclorutas y corredores peatonales con más espacio público.</p></article>
+   </div>
+   <div class="sura-reading"><b>Lectura para SURA:</b> priorizar sedes bien conectadas con las centralidades metropolitanas y corredores de movilidad, considerando la densificación urbana, accesibilidad y restricciones territoriales.</div>
+  </section>`;
+  return;
+ }
+ if(nombreCiudad=='Cúcuta'){
+  cont.innerHTML=`<section class="city-projection-pot" aria-label="Proyección urbana de Cúcuta según el POT">
+   <div class="projection-heading"><h3>Cúcuta · Proyección urbana según POT</h3><p>Lectura ejecutiva del modelo territorial</p></div>
+   ${renderPopulationProjection(nombreCiudad)}
+   <div class="projection-grid">
+    <article class="projection-card"><div class="pc-top"><span class="pc-num">01</span><h4>Ciudad densa y compacta</h4></div><p>Prioriza una ciudad <strong>compacta y de usos mixtos</strong>, con densificación donde exista infraestructura y soporte urbano.</p></article>
+    <article class="projection-card"><div class="pc-top"><span class="pc-num">02</span><h4>Expansión planificada</h4></div><p>Aproximadamente <strong>1.700 ha de expansión</strong>, sujetas a planes parciales, servicios, vías, espacio público y equipamientos.</p></article>
+    <article class="projection-card"><div class="pc-top"><span class="pc-num">03</span><h4>Nuevos sectores de crecimiento</h4></div><p>Proyecta desarrollos en El Resumen, El Progreso, El Rodeo–Minuto de Dios, Carmen de Tonchalá, La Gazapa y Simón Bolívar.</p></article>
+    <article class="projection-card"><div class="pc-top"><span class="pc-num">04</span><h4>Crecimiento y gestión territorial</h4></div><p>Equilibra expansión y consolidación con protección de áreas ambientales y zonas de riesgo no mitigable.</p></article>
+   </div>
+   <div class="sura-reading"><b>Lectura para SURA:</b> anticipar la demanda futura hacia zonas de expansión y nuevos desarrollos urbanos, priorizando accesibilidad, infraestructura disponible y exposición a riesgos territoriales.</div>
+  </section>`;
+  return;
+ }
+ if(nombreCiudad=='Santa Marta'){
+  cont.innerHTML=`<section class="city-projection-pot" aria-label="Proyección urbana de Santa Marta según el POT">
+   <div class="projection-heading"><h3>Santa Marta · Proyección urbana según POT</h3><p>Lectura ejecutiva del modelo territorial</p></div>
+   ${renderPopulationProjection(nombreCiudad)}
+   <div class="projection-grid">
+    <article class="projection-card"><div class="pc-top"><span class="pc-num">01</span><h4>Ciudad compacta y sostenible</h4></div><p>Prioriza la consolidación urbana, el uso eficiente del suelo y un crecimiento articulado con servicios, movilidad y espacio público.</p></article>
+    <article class="projection-card"><div class="pc-top"><span class="pc-num">02</span><h4>Expansión planificada</h4></div><p>Proyecta aproximadamente <strong>1.706 ha</strong> de expansión para orientar nuevos desarrollos urbanos de forma ordenada.</p></article>
+    <article class="projection-card"><div class="pc-top"><span class="pc-num">03</span><h4>Mar y Sierra como estructura territorial</h4></div><p>El crecimiento reconoce el mar Caribe y la Sierra Nevada como ejes ambientales, paisajísticos y de conectividad territorial.</p></article>
+    <article class="projection-card"><div class="pc-top"><span class="pc-num">04</span><h4>Turismo, puerto y logística</h4></div><p>Consolida estas vocaciones estratégicas y su articulación con infraestructura, empleo, servicios y desarrollo urbano.</p></article>
+   </div>
+   <div class="sura-reading"><b>Lectura para SURA:</b> anticipar la demanda futura de servicios frente a la expansión urbana y las dinámicas turísticas, portuarias y logísticas, priorizando accesibilidad, cobertura territorial y adaptación ambiental.</div>
+  </section>`;
+  return;
+ }
+ if(nombreCiudad=='Valledupar'){
+  cont.innerHTML=`<section class="city-projection-pot" aria-label="Proyección urbana de Valledupar según el POT">
+   <div class="projection-heading"><h3>Valledupar · Proyección urbana según POT</h3><p>Lectura ejecutiva del modelo territorial</p></div>
+   ${renderPopulationProjection(nombreCiudad)}
+   <div class="projection-grid">
+    <article class="projection-card"><div class="pc-top"><span class="pc-num">01</span><h4>Ciudad compacta y conectada</h4></div><p>Prioriza la redensificación urbana y un crecimiento articulado con movilidad, servicios, equipamientos y espacio público.</p></article>
+    <article class="projection-card"><div class="pc-top"><span class="pc-num">02</span><h4>Expansión planificada mediante áreas A–E</h4></div><p>Organiza el crecimiento en <strong>áreas de expansión A–E</strong>, incorporando restricciones de densidad según las condiciones territoriales.</p></article>
+    <article class="projection-card"><div class="pc-top"><span class="pc-num">03</span><h4>Mayor concentración urbana del 83% al 86%</h4></div><p>Proyecta una población cada vez más urbana, pasando del <strong>83% al 86%</strong> de concentración urbana.</p></article>
+    <article class="projection-card"><div class="pc-top"><span class="pc-num">04</span><h4>Vivienda y calidad urbana</h4></div><p>Integra vivienda, espacio público y equipamientos, con un <strong>mínimo del 30% del área útil para vivienda VIP</strong> en los desarrollos aplicables.</p></article>
+   </div>
+   <div class="sura-reading"><b>Lectura para SURA:</b> anticipar una mayor concentración de servicios en el área urbana y sectores de expansión, priorizando accesibilidad, conectividad, cobertura territorial y cercanía a nuevas áreas residenciales.</div>
+  </section>`;
+  return;
+ }
+ if(nombreCiudad=='Montería'){
+  cont.innerHTML=`<section class="city-projection-pot" aria-label="Proyección urbana de Montería según el POT">
+   <div class="projection-heading"><h3>Montería · Proyección urbana según POT</h3><p>Lectura ejecutiva del modelo territorial</p></div>
+   ${renderPopulationProjection(nombreCiudad)}
+   <div class="projection-grid">
+    <article class="projection-card"><div class="pc-top"><span class="pc-num">01</span><h4>Ciudad compacta y funcional</h4></div><p>Consolida el tejido urbano con vivienda, servicios, equipamientos y espacio público para reducir desplazamientos.</p></article>
+    <article class="projection-card"><div class="pc-top"><span class="pc-num">02</span><h4>Río Sinú como eje estructurante</h4></div><p>Articula el desarrollo urbano, la estructura ambiental, el espacio público y la movilidad de la ciudad.</p></article>
+    <article class="projection-card"><div class="pc-top"><span class="pc-num">03</span><h4>Movilidad y conectividad regional</h4></div><p>Integra transporte público, modos no motorizados y conexiones regionales para acompañar el crecimiento.</p></article>
+    <article class="projection-card"><div class="pc-top"><span class="pc-num">04</span><h4>Crecimiento resiliente</h4></div><p>Orienta nuevos desarrollos con servicios, infraestructura verde y gestión del riesgo de inundación.</p></article>
+   </div>
+   <div class="sura-reading"><b>Lectura para SURA:</b> priorizar sedes conectadas con los corredores de movilidad y áreas consolidadas de servicios, anticipando nuevos desarrollos y considerando especialmente accesibilidad e inundación como variables territoriales.</div>
+  </section>`;
+  return;
+ }
+ cont.innerHTML='<div class="future-panel"><div><b>Proyección de la ciudad</b>Contenido pendiente por definir.</div></div>';
+}
+const CITY_RISKS={
+ 'Barranquilla':{
+  riesgos:[
+   {titulo:'Lluvias intensas e inundación urbana',impacto:'Ingreso de agua, daño en acabados y equipos, y cierres temporales de acceso.',accion:'Limpiar y probar cubiertas, bajantes, canales, cárcamos y bombas antes de cada temporada de lluvias.'},
+   {titulo:'Arroyos y crecientes súbitas',impacto:'Bloqueo de vías, riesgo para usuarios y contratistas, y retrasos en turnos o abastecimiento.',accion:'Definir accesos alternos y un protocolo de suspensión según alertas; señalizar puntos de flujo cercanos.'},
+   {titulo:'Vientos fuertes y tormentas eléctricas',impacto:'Desprendimientos en cubiertas o fachadas, caída de ramas y fallas eléctricas.',accion:'Asegurar elementos exteriores, revisar arbolado y probar respaldo eléctrico y protecciones contra sobretensión.'}
+  ],
+  criterio:'Validar amenaza por arroyos e inundación y capacidad de drenaje; diseñar cubiertas, fachadas y redes críticas para lluvia y viento.'
+ },
+ 'Cartagena':{
+  riesgos:[
+   {titulo:'Inundación pluvial y fluvial',impacto:'Anegamiento de primeros pisos, daño de equipos y restricción de accesos y servicios.',accion:'Mantener drenajes y bombas; instalar barreras o válvulas antirretorno y elevar equipos sensibles.'},
+   {titulo:'Inundación costera y ascenso del mar',impacto:'Entrada de agua salina, corrosión acelerada y afectación prolongada de accesos y redes.',accion:'Ubicar tableros y activos críticos por encima de la cota de riesgo y aplicar protección anticorrosiva.'},
+   {titulo:'Erosión costera y oleaje',impacto:'Pérdida de estabilidad del terreno, exposición de redes y deterioro de cimentaciones próximas al litoral.',accion:'Inspeccionar retiros, terreno y cimentaciones; exigir concepto técnico antes de intervenir inmuebles costeros.'}
+  ],
+  criterio:'Cruzar la localización con amenaza integrada de inundación, escenario costero y exposición salina antes de adquirir, arrendar o ampliar.'
+ },
+ 'Bucaramanga':{
+  riesgos:[
+   {titulo:'Movimientos en masa y taludes',impacto:'Fisuras, daño estructural o de muros y bloqueo de accesos por deslizamientos.',accion:'Inspeccionar taludes, drenajes y muros; corregir filtraciones y monitorear grietas o deformaciones.'},
+   {titulo:'Lluvias intensas e inundación súbita',impacto:'Anegamiento de sótanos y accesos, saturación del terreno y fallas en redes internas.',accion:'Verificar capacidad de sumideros, canales y bombas; mantener libres las rutas de evacuación de agua.'},
+   {titulo:'Sismo',impacto:'Daño estructural y no estructural, caída de elementos y suspensión de servicios esenciales.',accion:'Evaluar vulnerabilidad, anclar equipos y estanterías y mantener rutas, señalización y simulacros vigentes.'}
+  ],
+  criterio:'Exigir estudio geotécnico y revisión sismorresistente; descartar zonas con amenaza alta no mitigable o taludes sin manejo integral.'
+ },
+ 'Cúcuta':{
+  riesgos:[
+   {titulo:'Sismo · amenaza alta',impacto:'Daño estructural y no estructural, caída de elementos y pérdida de continuidad operativa.',accion:'Actualizar evaluación bajo NSR-10, anclar equipos y verificar salidas, iluminación y plan de emergencia.'},
+   {titulo:'Inundación y crecientes',impacto:'Ingreso de agua, daño de redes y equipos, y aislamiento temporal de la sede.',accion:'Mantener drenajes y bombas, proteger accesos y elevar tableros y equipos críticos en zonas expuestas.'},
+   {titulo:'Movimientos en masa',impacto:'Inestabilidad de laderas, fisuras, afectación de cerramientos y bloqueo de accesos.',accion:'Realizar inspección geotécnica, controlar escorrentías y estabilizar taludes o muros con prioridad.'}
+  ],
+  criterio:'Combinar amenaza sísmica, estabilidad del terreno e inundación en la debida diligencia técnica y en el alcance de cada obra.'
+ },
+ 'Santa Marta':{
+  riesgos:[
+   {titulo:'Inundación y crecientes súbitas',impacto:'Entrada de agua, interrupción de accesos y daño en redes, archivos y equipos.',accion:'Mantener drenajes y bombeo, proteger accesos y elevar activos críticos frente a la cota de exposición.'},
+   {titulo:'Movimientos en masa y caída de rocas',impacto:'Afectación de taludes, muros y vías de acceso en sectores próximos a ladera.',accion:'Inspeccionar laderas y contenciones, controlar aguas y ejecutar estabilización definida por geotecnia.'},
+   {titulo:'Incendios de cobertura vegetal',impacto:'Humo y ceniza, exposición de fachadas y equipos exteriores, y evacuación preventiva.',accion:'Mantener franja perimetral limpia, controlar vegetación y revisar filtros HVAC y protocolo de cierre.'}
+  ],
+  criterio:'Verificar inundación, cercanía a cauces y condición de ladera; incorporar drenaje, franjas de protección y acceso alterno.'
+ },
+ 'Valledupar':{
+  riesgos:[
+   {titulo:'Inundación y crecientes súbitas',impacto:'Anegamiento, erosión local y cortes de acceso por desbordamiento de ríos o arroyos.',accion:'Mantener drenajes, proteger accesos y definir rutas alternas y umbrales de cierre por alerta.'},
+   {titulo:'Calor extremo y sequía',impacto:'Sobrecarga de climatización, mayor consumo y riesgo de falla en ambientes críticos.',accion:'Mantener HVAC, sellar la envolvente, instalar control solar y asegurar reserva y uso eficiente de agua.'},
+   {titulo:'Incendios de cobertura vegetal',impacto:'Humo, partículas y propagación hacia áreas exteriores, con posible suspensión preventiva.',accion:'Controlar vegetación y combustibles del perímetro, limpiar cubiertas y reforzar detección y respuesta.'}
+  ],
+  criterio:'Respetar rondas del Guatapurí, Cesar y arroyos; priorizar sombra, eficiencia térmica, disponibilidad de agua y acceso seguro.'
+ },
+ 'Montería':{
+  riesgos:[
+   {titulo:'Inundación pluvial',impacto:'Acumulación de agua por baja evacuación, ingreso a primeros pisos y cierre de accesos.',accion:'Diagnosticar drenaje del predio, limpiar sumideros y canales y probar bombas y respaldo eléctrico.'},
+   {titulo:'Desbordamiento del río Sinú',impacto:'Anegamiento prolongado, afectación de redes y aislamiento de inmuebles en zonas expuestas.',accion:'Elevar tableros y equipos, usar barreras temporales y activar continuidad con rutas y sedes alternas.'},
+   {titulo:'Movimientos en masa',impacto:'Inestabilidad localizada del terreno, fisuras y afectación de vías o elementos de contención.',accion:'Verificar condición geotécnica, controlar escorrentía e intervenir taludes y muros según estudio.'}
+  ],
+  criterio:'Consultar el estudio detallado y certificado de riesgo; modelar drenaje del lote y definir cota segura antes de diseñar o ampliar.'
+ }
+};
+function renderCityRisk(nombreCiudad){
+ const cont=$('#cityRiskContent'),d=CITY_RISKS[nombreCiudad];
+ if(!d){cont.innerHTML='<div class="future-panel"><div><b>Gestión del Riesgo</b>Contenido pendiente por definir.</div></div>';return}
+ cont.innerHTML=`<section class="city-risk-panel" aria-label="Gestión del riesgo de ${nombreCiudad}">
+  <div class="risk-heading"><h3>${nombreCiudad} · Riesgos naturales prioritarios</h3><p>Impacto en inmuebles y operación · acción de mitigación</p></div>
+  <div class="risk-grid">${d.riesgos.map((r,i)=>`<article class="risk-card"><div class="risk-top"><span class="risk-num">${String(i+1).padStart(2,'0')}</span><h4>${r.titulo}</h4></div><div class="risk-item"><b>Impacto</b><p>${r.impacto}</p></div><div class="risk-item"><b>Acción concreta</b><p>${r.accion}</p></div></article>`).join('')}</div>
+  <div class="project-criterion"><b>Criterio para proyectos:</b> ${d.criterio}</div>
+ </section>`;
+}
+function openCityInfo(nombreCiudad){
+ const sedesCiudad=SD.filter(s=>s.ciudad==nombreCiudad),grupos=CITY_UNITS.map(u=>({nombre:u.nombre,sedes:[...new Set(sedesCiudad.filter(s=>u.claves.some(c=>(s._cias||s.cia||[]).includes(c))).map(s=>s.nombre))].sort((a,b)=>a.localeCompare(b,'es'))}));
+ const unidadesActivas=grupos.filter(g=>g.sedes.length).length;
+ $('#cityModalTitle').textContent=nombreCiudad+' · Información de la ciudad';
+ $('#citySummary').innerHTML=`<b>${sedesCiudad.length} sede${sedesCiudad.length==1?'':'s'} registrada${sedesCiudad.length==1?'':'s'}</b><span>${unidadesActivas} unidad${unidadesActivas==1?'':'es'} de negocio con presencia registrada</span>`;
+ $('#cityBusinessGroups').innerHTML=grupos.map(g=>`<section class="business-card"><h3>${g.nombre}</h3>${g.sedes.length?`<ul>${g.sedes.map(s=>`<li>${s}</li>`).join('')}</ul>`:'<p class="empty">Sin sedes registradas para esta unidad de negocio.</p>'}</section>`).join('');
+ renderCityProjection(nombreCiudad);
+ renderCityRisk(nombreCiudad);
+ setCityTab('citySedes');$('#mCiudad').classList.add('on');
+}
 [...new Set(SD.flatMap(s=>s._cias))].sort().forEach(c=>$('#sCia').add(new Option(c,c)));
 const slug=t=>t.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/\s+/g,'-');
 function fillSedes(){const l=SD.filter(s=>s.ciudad==city&&(!cia||s._cias.includes(cia)));
@@ -580,9 +886,7 @@ function renderTable(){const q=$('#fTxt').value.toLowerCase(),fc=$('#fCity').val
 renderTable();
 /* visión tabs */
 $$('#vtabs button').forEach(b=>b.onclick=()=>{$$('#vtabs button').forEach(x=>x.classList.remove('on'));b.classList.add('on');$$('#mVision .tabc').forEach(t=>t.classList.toggle('on',t.id==b.dataset.t))});
-/* video */
-function setYT(u){const m=(u||'').match(/(?:v=|youtu\.be\/|embed\/)([\w-]{11})/);if(m)$('#vframe').innerHTML=`<iframe src="https://www.youtube.com/embed/${m[1]}" allowfullscreen allow="autoplay; encrypted-media"></iframe>`}
-if(VIDEO.youtube)setYT(VIDEO.youtube);else{const v=document.createElement('video');v.controls=true;v.src=VIDEO.local;v.onloadeddata=()=>{$('#vframe').innerHTML='';$('#vframe').appendChild(v)};v.load()}
+/* video fijo alojado en GitHub: video/presentacion.mov */
 /* edición deshabilitada: los textos se cambian solo en index.html */
 function applyEdits(){}
 applyEdits();
