@@ -43,8 +43,8 @@ h1{font-size:46px;color:var(--navy)}h2{font-size:30px;color:var(--navy);margin-b
 .map-city-hotspot:hover{background:rgba(0,174,199,.12);box-shadow:0 0 0 2px rgba(0,47,108,.28)}
 .map-city-hotspot:focus-visible{outline:3px solid #00AEC7;outline-offset:2px;background:rgba(255,255,255,.16)}
 /* Áreas transparentes alineadas con las etiquetas originales integradas en el PNG */
-.map-city-hotspot.cartagena{left:34.1%;top:34%;width:12%;height:5%}.map-city-hotspot.barranquilla{left:42.6%;top:23.6%;width:12%;height:5%}.map-city-hotspot.santa-marta{left:57.6%;top:14.8%;width:12%;height:5%}
-.map-city-hotspot.monteria{left:28%;top:51.4%;width:9%;height:5%}.map-city-hotspot.valledupar{left:65.7%;top:32.3%;width:10%;height:5%}.map-city-hotspot.bucaramanga{left:60%;top:78.5%;width:12%;height:5%}.map-city-hotspot.cucuta{left:71.5%;top:56.4%;width:8.5%;height:5%}
+.map-city-hotspot.cartagena{left:25%;top:31%;width:12%;height:5%}.map-city-hotspot.barranquilla{left:30%;top:23.6%;width:12%;height:5%}.map-city-hotspot.santa-marta{left:48%;top:20%;width:12%;height:5%}
+.map-city-hotspot.monteria{left:32%;top:53%;width:9%;height:5%}.map-city-hotspot.valledupar{left:55%;top:30%;width:10%;height:5%}.map-city-hotspot.bucaramanga{left:58%;top:75%;width:12%;height:5%}.map-city-hotspot.cucuta{left:63%;top:64.5%;width:8.5%;height:5%}
 .map-help{margin:12px 2px 0;color:#666;font-size:13px;text-align:center}
 .city-modal{z-index:60}
 .city-intro{display:flex;align-items:center;justify-content:space-between;gap:16px;background:#eaf8fb;border-left:5px solid var(--cyan);border-radius:12px;padding:14px 16px;margin-bottom:16px}
@@ -91,9 +91,17 @@ h1{font-size:46px;color:var(--navy)}h2{font-size:30px;color:var(--navy);margin-b
 .risk-item b{display:block;color:var(--cyan);font-size:10px;letter-spacing:.8px;text-transform:uppercase;margin-bottom:3px}.risk-item p{font-size:12.5px;line-height:1.38;color:#4c6078}
 .project-criterion{margin-top:13px;background:var(--navy);color:#fff;border-radius:13px;padding:13px 16px;font-size:13px;line-height:1.42;box-shadow:0 4px 12px #002f6c26}.project-criterion b{color:#bfeaf0}
 
-.cover .side{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.stat{background:var(--lg);border-radius:16px;padding:22px}
-.stat b{display:block;font-size:34px;color:var(--navy)}
+.cover .side{flex:1;min-width:340px}
+.cover-summary{position:relative;overflow:hidden;background:linear-gradient(145deg,#002F6C 0%,#00468f 100%);color:#fff;border-radius:22px;padding:25px 28px 22px;box-shadow:0 16px 34px #002f6c2b;border:1px solid #ffffff24}
+.cover-summary:after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;right:-95px;top:-105px;background:#00aec72b;pointer-events:none}
+.cover-summary .summary-kicker{position:relative;color:#8fe9f3;font-size:11px;font-weight:900;letter-spacing:1.8px;text-transform:uppercase;margin-bottom:5px}
+.cover-summary h2{position:relative;color:#fff;font-size:21px;margin:0 0 11px}
+.summary-list{position:relative;list-style:none;margin:0;padding:0}
+.summary-item{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:16px;padding:10px 0;border-top:1px solid #ffffff2e}
+.summary-label{display:flex;align-items:center;gap:10px;color:#dcecff;font-size:13px;line-height:1.2}
+.summary-icon{display:grid;place-items:center;width:28px;height:28px;flex:none;border-radius:9px;background:#00aec72b;color:#8fe9f3;font-size:14px}
+.summary-value{color:#fff;font-size:24px;font-weight:900;line-height:1;white-space:nowrap;text-align:right}
+.summary-item.budget .summary-value{font-size:20px}
 /* organigrama */
 .org{display:flex;flex-direction:column;align-items:center}
 .lvl{display:flex;gap:28px;justify-content:center;position:relative}
@@ -193,8 +201,8 @@ body.edit [data-edit]{outline:2px dashed var(--cyan);outline-offset:3px;backgrou
 body.edit [data-edit]:focus{outline-color:var(--navy)}
 .editbar{position:fixed;left:22px;bottom:16px;z-index:30;display:none;gap:8px}
 body.edit .editbar{display:flex}
-@media(max-width:1000px){.population-main{grid-template-columns:1fr auto 1fr}.population-change{grid-column:1/-1;border-left:0;border-top:1px solid #e2e9ef;padding:10px 0 0}section.slide{padding:24px 18px 80px}.tools{top:auto;bottom:60px;right:10px;flex-direction:row}.cities{grid-template-columns:repeat(4,1fr)}.cdet,.grid2,.vis-hero,.ia,.pillars{grid-template-columns:1fr}.kpis,.princ,.road{grid-template-columns:1fr 1fr}.cover{flex-direction:column}.lvl{flex-direction:column}.hline{display:none}.business-grid{grid-template-columns:1fr 1fr}.risk-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:700px){.population-kicker{align-items:flex-start;flex-direction:column;gap:3px}.population-point strong{font-size:18px}.population-main{gap:7px}.business-grid,.projection-grid,.risk-grid{grid-template-columns:1fr}.projection-heading,.risk-heading{align-items:flex-start;flex-direction:column;gap:4px}.projection-heading p,.risk-heading p{text-align:left}.city-intro{align-items:flex-start;flex-direction:column}.mhead{padding:14px 16px}.mhead h2{font-size:22px}.mbody{padding:18px}}
+@media(max-width:1000px){.population-main{grid-template-columns:1fr auto 1fr}.population-change{grid-column:1/-1;border-left:0;border-top:1px solid #e2e9ef;padding:10px 0 0}section.slide{padding:24px 18px 80px}.tools{top:auto;bottom:60px;right:10px;flex-direction:row}.cities{grid-template-columns:repeat(4,1fr)}.cdet,.grid2,.vis-hero,.ia,.pillars{grid-template-columns:1fr}.kpis,.princ,.road{grid-template-columns:1fr 1fr}.cover{flex-direction:column;align-items:stretch;height:auto}.cover .side{width:100%;min-width:0}.lvl{flex-direction:column}.hline{display:none}.business-grid{grid-template-columns:1fr 1fr}.risk-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){.population-kicker{align-items:flex-start;flex-direction:column;gap:3px}.population-point strong{font-size:18px}.population-main{gap:7px}.business-grid,.projection-grid,.risk-grid{grid-template-columns:1fr}.projection-heading,.risk-heading{align-items:flex-start;flex-direction:column;gap:4px}.projection-heading p,.risk-heading p{text-align:left}.city-intro{align-items:flex-start;flex-direction:column}.mhead{padding:14px 16px}.mhead h2{font-size:22px}.mbody{padding:18px}.cover-summary{padding:21px 20px 18px}.summary-item{gap:10px}.summary-value{font-size:21px}.summary-item.budget .summary-value{font-size:17px}}
 @media print{.tools,nav,.arrow,.editbar{display:none}}
 /* ===== CARRUSEL DE SEDES ===== */
 .photo .slides{position:absolute;inset:0}
@@ -245,10 +253,18 @@ body.edit .editbar{display:flex}
    <div class="chips"><button class="map-btn" type="button" onclick="openM('mMapa')">Mapa</button></div>
   </div>
   <div class="side">
-   <div class="stat"><b>7</b>ciudades principales</div>
-   <div class="stat"><b id="cImp">–</b>ejecución mantenimiento de impacto</div>
-   <div class="stat"><b id="cProj">–</b>proyectos 2026</div>
-   <div class="stat"><b id="cVal">–</b>presupuesto proyectos 2026</div>
+   <section class="cover-summary" aria-labelledby="coverSummaryTitle">
+    <div class="summary-kicker">Regional Norte</div>
+    <h2 id="coverSummaryTitle">Cifras clave 2026</h2>
+    <ul class="summary-list">
+     <li class="summary-item"><span class="summary-label"><span class="summary-icon" aria-hidden="true">●</span>Número de ciudades</span><b class="summary-value" id="cCities">–</b></li>
+     <li class="summary-item"><span class="summary-label"><span class="summary-icon" aria-hidden="true">◆</span>Número de sedes</span><b class="summary-value" id="cSites">–</b></li>
+     <li class="summary-item"><span class="summary-label"><span class="summary-icon" aria-hidden="true">■</span>Número de proyectos</span><b class="summary-value" id="cProj">–</b></li>
+     <li class="summary-item"><span class="summary-label"><span class="summary-icon" aria-hidden="true">●</span>Número de avisos de mantenimiento</span><b class="summary-value" id="cNotices">–</b></li>
+     <li class="summary-item budget"><span class="summary-label"><span class="summary-icon" aria-hidden="true">$</span>Presupuesto de proyectos</span><b class="summary-value" id="cVal">–</b></li>
+     <li class="summary-item budget"><span class="summary-label"><span class="summary-icon" aria-hidden="true">$</span>Presupuesto de mantenimiento de impacto</span><b class="summary-value" id="cImpactBudget">–</b></li>
+    </ul>
+   </section>
   </div>
  </div>
 </section>
@@ -844,9 +860,9 @@ function renderSede(){const s=SD.find(x=>x.id==sede);
  $('#tl').innerHTML=h.length?h.join(''):'<li class="pend">Por completar</li>';}
 /* ciudades */
 let city='Barranquilla',year='2026';
-sede=(SD.find(x=>x.ciudad==city)||{}).id||'';
-Object.keys(CIUDADES).forEach(c=>{const d=document.createElement('div');d.className='city';d.textContent=c;d.onclick=()=>{city=c;sede=(SD.find(x=>x.ciudad==c&&(!cia||x._cias.includes(cia)))||{}).id||'';renderCity()};$('#cities').appendChild(d)});
-['2024','2025','2026'].forEach(y=>{const b=document.createElement('button');b.textContent=y;b.onclick=()=>{year=y;renderCity()};$('#years').appendChild(b)});
+sede='';
+Object.keys(CIUDADES).forEach(c=>{const d=document.createElement('div');d.className='city';d.textContent=c;d.onclick=()=>{city=c;sede='';renderCity()};$('#cities').appendChild(d)});
+['2024','2025','2026', '2027'].forEach(y=>{const b=document.createElement('button');b.textContent=y;b.onclick=()=>{year=y;renderCity()};$('#years').appendChild(b)});
 function renderCity(){const c=CIUDADES[city];$$('.city').forEach(d=>d.classList.toggle('on',d.textContent==city));$$('#years button').forEach(b=>b.classList.toggle('on',b.textContent==year));
  fillSedes();if(sede){renderSede();return}
  renderCarousel(city,c);
@@ -858,7 +874,7 @@ renderCity();
 const P=PROYECTOS_2026,sum=(arr,i)=>arr.reduce((a,r)=>a+(r[i]||0),0),tot=sum(P,5);
 const grpBy=(arr,k,v)=>{const o={};arr.forEach(r=>o[r[k]]=(o[r[k]]||0)+(r[v]||0));return Object.entries(o).sort((a,b)=>b[1]-a[1])};
 const imAp=sum(IMPACTO_2026,3),imEj=sum(IMPACTO_2026,4);
-$('#cProj').textContent=P.length;$('#cImp').textContent=imAp?(imEj/imAp*100).toFixed(0)+'%':'–';$('#cVal').textContent=fmtM(tot);
+$('#cCities').textContent=new Set(SD.map(s=>s.ciudad).filter(Boolean)).size||Object.keys(CIUDADES).length;$('#cSites').textContent=SD.length;$('#cProj').textContent=P.length;$('#cNotices').textContent=AVISOS_IMPACTO.length;$('#cVal').textContent=fmtM(tot);$('#cImpactBudget').textContent=fmtM(imAp);
 $('#kTot').textContent=fmtM(tot);$('#kN').textContent=P.length;$('#kPag').textContent=fmtM(PAGOS_2026.obras_pagado);$('#kPen').textContent=fmtM(PAGOS_2026.obras_pendiente);
 const cols=['#002F6C','#00AEC7','#96C676','#E5EB10','#8EAFEF','#BDBDBD'];
 function bars(id,arr){const m=Math.max(...arr.map(e=>e[1]));$(id).innerHTML=arr.map((e,i)=>`<div class="bar"><span>${e[0]}</span><div class="tr"><div class="fl" data-w="${e[1]/m*100}" style="background:${cols[i%6]}"></div></div><span class="v">${fmtM(e[1])}</span></div>`).join('')}
