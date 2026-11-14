@@ -246,26 +246,18 @@ const SEDES = [
   impacto:[], proyectos:[], hitos:{"2025":[],"2026":[],"2027":[]}}
 ];
 
-/* ====== PROYECTOS DESTACADOS ======
-   Cada proyecto corresponde a una carpeta dentro de pj_destacados/.
+/* ====== PROYECTOS DESTACADOS · RESPALDO ======
+   La lista principal se genera automáticamente en proyectos_index.json mediante
+   actualizar_proyectos.py, que recorre esta estructura física:
+   pj_destacados/<ciudad>/<unidad_de_negocio>/<proyecto>/.
 
-   Para agregar otro proyecto, copie una entrada y cambie:
-   - ciudad: una de estas opciones: Barranquilla, Cartagena, Santa Marta, Valledupar,
-     Montería, Cúcuta o Bucaramanga.
-   - unidades: una o varias opciones entre Seguros Generales, Servicios Generales,
-     IPS, AYDX y EPS.
-   - carpeta: nombre EXACTO de la carpeta interna de pj_destacados.
-   - nombre: título visible. Si se deja vacío, se forma desde el nombre de la carpeta.
-   - texto: contenido inicial del cuadro de texto. El usuario también puede escribir en la
-     presentación; ese cambio se conserva localmente en el navegador.
-   - fotos (opcional): nombres EXACTOS de archivos cuando no se llaman foto-1.jpg,
-     foto-2.jpg, etc. También admite {archivo:"foto.jpg", texto:"Pie de foto"}.
-
-   Sin lista explícita, el carrusel prueba automáticamente foto-1 a foto-20 en formatos
-   jpg, jpeg, png y webp dentro de pj_destacados/<carpeta>/.
+   Esta constante se conserva únicamente como respaldo para abrir index.html mediante
+   file:// o cuando proyectos_index.json todavía no esté disponible. No es necesario
+   registrar aquí cada carpeta nueva: agregue las fotos, ejecute el script localmente o
+   deje que Netlify lo ejecute durante el despliegue.
 */
 const PROYECTOS_DESTACADOS = [
- {ciudad:"Barranquilla", unidades:["IPS"], carpeta:"rehabilitacion_genoves", nombre:"Rehabilitación Genovés",
+ {ciudad:"Barranquilla", unidades:["IPS"], proyecto:"rehabilitacion_genoves", carpeta:"rehabilitacion_genoves", nombre:"Rehabilitación Genovés",
   texto:"Escriba aquí la descripción, los resultados y los aspectos destacados del proyecto.",
   fotos:[]}
 ];

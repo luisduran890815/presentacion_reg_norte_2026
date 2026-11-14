@@ -360,10 +360,11 @@ body.edit .editbar{display:flex}
 <section class="slide" id="proyectosDestacados">
  <div class="kicker">Portafolio visual</div>
  <h2>Proyectos destacados</h2>
- <p class="sub">Filtra por ciudad y unidad de negocio para recorrer las fotos y registrar su descripción.</p>
+ <p class="sub">Filtra por ciudad, unidad de negocio y proyecto para recorrer las fotos y registrar su descripción.</p>
  <div class="pjd-filters">
   <label for="pjdCity">Ciudad</label><select id="pjdCity" aria-label="Filtrar proyectos destacados por ciudad"></select>
   <label for="pjdBusiness">Unidad de negocio</label><select id="pjdBusiness" aria-label="Filtrar proyectos destacados por unidad de negocio"></select>
+  <label for="pjdProject">Proyecto</label><select id="pjdProject" aria-label="Filtrar proyectos destacados por proyecto"></select>
  </div>
  <div class="pjd-grid">
   <div class="pjd-carousel" id="pjdCarousel" aria-live="polite"></div>
@@ -722,25 +723,32 @@ function renderCarousel(city,c){
  });
  p.dataset.city=city;
 }
-/* ===== PROYECTOS DESTACADOS · carpeta pj_destacados/ ===== */
+/* ===== PROYECTOS DESTACADOS · índice generado desde pj_destacados/ ===== */
 const PJD_CITIES=['Barranquilla','Cartagena','Santa Marta','Valledupar','Montería','Cúcuta','Bucaramanga'];
 const PJD_BUSINESS_UNITS=['Seguros Generales','Servicios Generales','IPS','AYDX','EPS'];
-const PJD=(typeof PROYECTOS_DESTACADOS!='undefined'?PROYECTOS_DESTACADOS:[]).map((p,i)=>{
- const carpeta=String(p.carpeta||''),nombre=String(p.nombre||'').trim(),unidades=Array.isArray(p.unidades)?p.unidades:(p.unidad?[p.unidad]:[]);
- return {...p,ciudad:String(p.ciudad||'').trim(),unidades:unidades.map(u=>String(u).trim()).filter(Boolean),carpeta,nombre:nombre||String(carpeta||('Proyecto '+(i+1))).replace(/[_-]+/g,' ').replace(/(^|\s)([a-záéíóúüñ])/g,(m,a,b)=>a+b.toUpperCase())};
-});
-let pjdTimer=null,pjdLoad=0,pjdActiveProject=null;
+const PJD_INDEX_URL='proyectos_index.json';
+const pjdFolderPart=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'_').replace(/^_+|_+$/g,'');
+const pjdNormalizeProjects=source=>(Array.isArray(source)?source:[]).map((p,i)=>{
+ const ciudad=String(p.ciudad||'').trim(),unidades=(Array.isArray(p.unidades)?p.unidades:(p.unidad?[p.unidad]:[])).map(u=>String(u).trim()).filter(Boolean);
+ const carpetaDato=String(p.carpeta||'').replace(/^\/+|\/+$/g,''),proyecto=String(p.proyecto||carpetaDato.split('/').filter(Boolean).pop()||'').trim();
+ const carpeta=carpetaDato.includes('/')?carpetaDato:[pjdFolderPart(ciudad),pjdFolderPart(unidades[0]),proyecto].filter(Boolean).join('/');
+ const nombre=String(p.nombre||'').trim()||String(proyecto||('Proyecto '+(i+1))).replace(/[_-]+/g,' ').replace(/(^|\s)([a-záéíóúüñ])/g,(m,a,b)=>a+b.toUpperCase());
+ return {...p,ciudad,unidades,proyecto,carpeta,nombre};
+}).filter(p=>p.ciudad&&p.unidades.length&&p.proyecto&&p.carpeta);
+const PJD_FALLBACK=pjdNormalizeProjects(typeof PROYECTOS_DESTACADOS!='undefined'?PROYECTOS_DESTACADOS:[]);
+let PJD=PJD_FALLBACK.slice(),pjdTimer=null,pjdLoad=0,pjdActiveProject=null;
 const pjdKey=p=>'pj-destacado-texto:'+p.carpeta;
 function pjdGetText(p){try{const v=localStorage.getItem(pjdKey(p));return v===null?(p.texto||''):v}catch(e){return p.texto||''}}
 function pjdSetText(p,v){try{localStorage.setItem(pjdKey(p),v);$('#pjdSave').textContent='Texto guardado automáticamente en este navegador.'}catch(e){$('#pjdSave').textContent='El navegador no permitió guardar; el texto se mantendrá durante esta sesión.'}}
 function pjdCandidates(p){
  const base='pj_destacados/'+p.carpeta+'/',list=[];
  (p.fotos||[]).forEach(f=>{const o=typeof f=='string'?{archivo:f,texto:''}:f||{};if(o.archivo)list.push({src:/^(?:https?:|data:|pj_destacados\/)/.test(o.archivo)?o.archivo:base+o.archivo,txt:o.texto||''})});
- ['portada'].concat([...Array(20)].map((_,i)=>'foto-'+(i+1))).forEach(n=>['jpg','jpeg','png','webp'].forEach(ext=>list.push({src:base+n+'.'+ext,txt:''})));
+ if(!list.length)['portada'].concat([...Array(20)].map((_,i)=>'foto-'+(i+1))).forEach(n=>['jpg','jpeg','png','webp'].forEach(ext=>list.push({src:base+n+'.'+ext,txt:''})));
  const seen=new Set();return list.filter(f=>!seen.has(f.src)&&seen.add(f.src));
 }
-function pjdShowEmpty(p){
- $('#pjdCarousel').innerHTML=`<div class="pjd-empty"><b>${p?'Aún no hay fotos disponibles':'No hay proyectos configurados'}</b>${p?'Agrega imágenes a la carpeta del proyecto. Se detectan automáticamente foto-1.jpg, foto-2.jpg… o puedes listar otros nombres en data.js.':'Agrega los proyectos en PROYECTOS_DESTACADOS dentro de data.js.'}${p?`<br><code>pj_destacados/${p.carpeta}/</code>`:''}</div>`;
+function pjdShowEmpty(p,message){
+ const detail=message?'':(p?'Verifica las imágenes incluidas en la carpeta del proyecto y vuelve a generar proyectos_index.json.':'Agrega carpetas e imágenes en pj_destacados/ y ejecuta actualizar_proyectos.py.');
+ $('#pjdCarousel').innerHTML=`<div class="pjd-empty"><b>${message||(p?'Aún no hay fotos disponibles':'No hay proyectos detectados')}</b>${detail}${p?`<br><code>pj_destacados/${p.carpeta}/</code>`:''}</div>`;
 }
 function pjdBindProject(p){
  pjdActiveProject=p||null;
@@ -764,14 +772,44 @@ async function pjdRender(projects){
  if(fotos.length>1){car.querySelector('.prev').onclick=()=>{show(pos-1);auto()};car.querySelector('.next').onclick=()=>{show(pos+1);auto()};car.querySelectorAll('.pjd-dots button').forEach((b,i)=>b.onclick=()=>{show(i);auto()});car.onmouseenter=()=>clearInterval(pjdTimer);car.onmouseleave=auto}
  show(0);auto();
 }
-function pjdApplyFilters(){
- const city=$('#pjdCity').value,unit=$('#pjdBusiness').value;
- pjdRender(PJD.filter(p=>(!city||p.ciudad==city)&&(!unit||p.unidades.includes(unit))));
+function pjdSetOptions(select,placeholder,items,emptyText){
+ const current=select.value;select.innerHTML=`<option value="">${items.length?placeholder:emptyText}</option>`+items.map(x=>`<option value="${x.value}">${x.label}</option>`).join('');
+ select.disabled=!items.length;if(items.some(x=>x.value==current))select.value=current;
 }
-function pjdInit(){
- $('#pjdCity').innerHTML='<option value="">Todas las ciudades</option>'+PJD_CITIES.map(c=>`<option value="${c}">${c}</option>`).join('');
- $('#pjdBusiness').innerHTML='<option value="">Todas las unidades de negocio</option>'+PJD_BUSINESS_UNITS.map(u=>`<option value="${u}">${u}</option>`).join('');
- $('#pjdCity').onchange=pjdApplyFilters;$('#pjdBusiness').onchange=pjdApplyFilters;pjdApplyFilters();
+function pjdSyncBusinesses(){
+ const city=$('#pjdCity').value,found=new Set();PJD.filter(p=>!city||p.ciudad==city).forEach(p=>p.unidades.forEach(u=>found.add(u)));
+ const units=PJD_BUSINESS_UNITS.filter(u=>found.has(u)).concat([...found].filter(u=>!PJD_BUSINESS_UNITS.includes(u)).sort((a,b)=>a.localeCompare(b,'es'))).map(u=>({value:u,label:u}));
+ pjdSetOptions($('#pjdBusiness'),'Todas las unidades de negocio',units,'No hay unidades configuradas');
+}
+function pjdSyncProjects(){
+ const city=$('#pjdCity').value,unit=$('#pjdBusiness').value,seen=new Set();
+ const projects=PJD.filter(p=>(!city||p.ciudad==city)&&(!unit||p.unidades.includes(unit))).filter(p=>!seen.has(p.carpeta)&&seen.add(p.carpeta)).sort((a,b)=>a.nombre.localeCompare(b.nombre,'es')).map(p=>({value:p.carpeta,label:p.nombre}));
+ pjdSetOptions($('#pjdProject'),'Todos los proyectos',projects,'No hay proyectos configurados');
+}
+function pjdApplyFilters(){
+ const city=$('#pjdCity').value,unit=$('#pjdBusiness').value,project=$('#pjdProject').value;
+ pjdRender(PJD.filter(p=>(!city||p.ciudad==city)&&(!unit||p.unidades.includes(unit))&&(!project||p.carpeta==project)));
+}
+function pjdRefreshSelectors(){
+ const available=new Set(PJD.map(p=>p.ciudad));
+ const cities=PJD_CITIES.filter(c=>available.has(c)).concat([...available].filter(c=>!PJD_CITIES.includes(c)).sort((a,b)=>a.localeCompare(b,'es')));
+ $('#pjdCity').innerHTML='<option value="">Todas las ciudades</option>'+cities.map(c=>`<option value="${c}">${c}</option>`).join('');
+ $('#pjdCity').disabled=!cities.length;pjdSyncBusinesses();pjdSyncProjects();pjdApplyFilters();
+}
+async function pjdLoadGeneratedIndex(){
+ try{
+  const response=await fetch(PJD_INDEX_URL,{cache:'no-store'});if(!response.ok)throw new Error('HTTP '+response.status);
+  const payload=await response.json(),loaded=pjdNormalizeProjects(Array.isArray(payload)?payload:payload.proyectos);
+  PJD=loaded;return true;
+ }catch(error){console.warn('No se pudo cargar '+PJD_INDEX_URL+'. Se usa el respaldo de data.js.',error);PJD=PJD_FALLBACK.slice();return false}
+}
+async function pjdInit(){
+ $('#pjdCity').disabled=$('#pjdBusiness').disabled=$('#pjdProject').disabled=true;
+ pjdShowEmpty(null,'Actualizando proyectos…');pjdBindProject(null);
+ $('#pjdCity').onchange=()=>{pjdSyncBusinesses();pjdSyncProjects();pjdApplyFilters()};
+ $('#pjdBusiness').onchange=()=>{pjdSyncProjects();pjdApplyFilters()};
+ $('#pjdProject').onchange=pjdApplyFilters;
+ await pjdLoadGeneratedIndex();pjdRefreshSelectors();
 }
 pjdInit();
 /* ===== FILTROS COMPAÑÍA / SEDE ===== */

@@ -1,0 +1,32 @@
+[
+  {
+    "ciudad": "Barranquilla",
+    "unidad": "IPS",
+    "unidades": [
+      "IPS"
+    ],
+    "proyecto": "rehabilitacion_genoves",
+    "carpeta": "barranquilla/ips/rehabilitacion_genoves",
+    "nombre": "Rehabilitacion Genoves",
+    "texto": "Escriba aquí la descripción, los resultados y los aspectos destacados del proyecto.",
+    "fotos": [
+      "foto-1.jpg",
+      "foto-2.jpg",
+      "foto-3.jpg"
+    ]
+  },
+  {
+    "ciudad": "Bucaramanga",
+    "unidad": "Servicios Generales",
+    "unidades": [
+      "Servicios Generales"
+    ],
+    "proyecto": "CE_Atlas",
+    "carpeta": "bucaramanga/servicios_generales/CE_Atlas",
+    "nombre": "Ce Atlas",
+    "texto": "Escriba aquí la descripción, los resultados y los aspectos destacados del proyecto.",
+    "fotos": [
+      "foto-1.jpg"
+    ]
+  }
+]
