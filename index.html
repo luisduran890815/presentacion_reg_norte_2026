@@ -736,7 +736,7 @@ const pjdNormalizeProjects=source=>(Array.isArray(source)?source:[]).map((p,i)=>
  return {...p,ciudad,unidades,proyecto,carpeta,nombre};
 }).filter(p=>p.ciudad&&p.unidades.length&&p.proyecto&&p.carpeta);
 const PJD_FALLBACK=pjdNormalizeProjects(typeof PROYECTOS_DESTACADOS!='undefined'?PROYECTOS_DESTACADOS:[]);
-let PJD=PJD_FALLBACK.slice(),pjdTimer=null,pjdLoad=0,pjdActiveProject=null;
+let PJD=PJD_FALLBACK.slice(),pjdLoad=0,pjdActiveProject=null;
 const pjdKey=p=>'pj-destacado-texto:'+p.carpeta;
 function pjdGetText(p){try{const v=localStorage.getItem(pjdKey(p));return v===null?(p.texto||''):v}catch(e){return p.texto||''}}
 function pjdSetText(p,v){try{localStorage.setItem(pjdKey(p),v);$('#pjdSave').textContent='Texto guardado automáticamente en este navegador.'}catch(e){$('#pjdSave').textContent='El navegador no permitió guardar; el texto se mantendrá durante esta sesión.'}}
@@ -756,7 +756,7 @@ function pjdBindProject(p){
  $('#pjdTitle').textContent=p.nombre;$('#pjdPath').textContent='pj_destacados/'+p.carpeta+'/';$('#pjdText').disabled=false;$('#pjdText').value=pjdGetText(p);$('#pjdText').oninput=e=>pjdSetText(p,e.target.value);$('#pjdSave').textContent='El texto se guarda automáticamente en este navegador.';
 }
 async function pjdRender(projects){
- clearInterval(pjdTimer);const token=++pjdLoad,car=$('#pjdCarousel');
+ const token=++pjdLoad,car=$('#pjdCarousel');
  const list=Array.isArray(projects)?projects:projects?[projects]:[];
  if(!list.length){pjdShowEmpty();pjdBindProject(null);return}
  pjdBindProject(list[0]);
@@ -768,9 +768,8 @@ async function pjdRender(projects){
   (fotos.length>1?`<button class="pjd-nav prev" type="button" aria-label="Foto anterior">‹</button><button class="pjd-nav next" type="button" aria-label="Foto siguiente">›</button><div class="pjd-dots">${fotos.map((_,i)=>`<button type="button" class="${i?'':'on'}" aria-label="Ver foto ${i+1}"></button>`).join('')}</div>`:'')+
   `<div class="pjd-caption"></div>`;
  const show=n=>{pos=(n+fotos.length)%fotos.length;const actual=fotos[pos];car.querySelectorAll('.pjd-slides img').forEach((im,i)=>im.classList.toggle('on',i==pos));car.querySelectorAll('.pjd-dots button').forEach((b,i)=>b.classList.toggle('on',i==pos));pjdBindProject(actual.proyecto);car.querySelector('.pjd-caption').textContent=(actual.txt?actual.txt+' · ':'')+actual.proyecto.nombre+' · '+(pos+1)+' de '+fotos.length};
- const auto=()=>{clearInterval(pjdTimer);if(fotos.length>1)pjdTimer=setInterval(()=>show(pos+1),5000)};
- if(fotos.length>1){car.querySelector('.prev').onclick=()=>{show(pos-1);auto()};car.querySelector('.next').onclick=()=>{show(pos+1);auto()};car.querySelectorAll('.pjd-dots button').forEach((b,i)=>b.onclick=()=>{show(i);auto()});car.onmouseenter=()=>clearInterval(pjdTimer);car.onmouseleave=auto}
- show(0);auto();
+ if(fotos.length>1){car.querySelector('.prev').onclick=()=>show(pos-1);car.querySelector('.next').onclick=()=>show(pos+1);car.querySelectorAll('.pjd-dots button').forEach((b,i)=>b.onclick=()=>show(i))}
+ show(0);
 }
 function pjdSetOptions(select,placeholder,items,emptyText){
  const current=select.value;select.innerHTML=`<option value="">${items.length?placeholder:emptyText}</option>`+items.map(x=>`<option value="${x.value}">${x.label}</option>`).join('');
