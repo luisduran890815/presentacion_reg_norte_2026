@@ -228,6 +228,30 @@ body.edit .editbar{display:flex}
 .tl li.proy{background:#EAF0FA}
 .tl li.hdr{background:none;padding:4px 0 0;font-size:12px;font-weight:bold;color:var(--cyan);text-transform:uppercase;letter-spacing:1px}
 .tl li.hdr:before{display:none}
+/* ===== PROYECTOS DESTACADOS · sección adicional ===== */
+.pjd-filters{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:12px 0 18px}
+.pjd-filters label{font-size:13px;font-weight:bold;color:var(--navy)}
+.pjd-filters select{padding:9px 12px;border:2px solid var(--lg);border-radius:12px;font:bold 14px Arial;color:var(--navy);background:#fff;min-width:190px;cursor:pointer}
+.pjd-filters select:focus{outline:none;border-color:var(--cyan)}
+.pjd-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(310px,.75fr);gap:24px;align-items:stretch}
+.pjd-carousel{position:relative;min-height:390px;border-radius:18px;overflow:hidden;background:linear-gradient(135deg,var(--navy),var(--cyan));color:#fff;display:grid;place-items:center;text-align:center}
+.pjd-carousel .pjd-slides{position:absolute;inset:0}
+.pjd-carousel .pjd-slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .65s}
+.pjd-carousel .pjd-slides img.on{opacity:1}
+.pjd-carousel .pjd-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:42px;height:42px;border-radius:50%;border:0;background:#ffffffdf;color:var(--navy);font-size:24px;font-weight:bold;cursor:pointer}
+.pjd-carousel .pjd-nav.prev{left:14px}.pjd-carousel .pjd-nav.next{right:14px}
+.pjd-carousel .pjd-dots{position:absolute;top:14px;right:16px;z-index:3;display:flex;gap:7px}
+.pjd-carousel .pjd-dots button{width:10px;height:10px;border:0;border-radius:50%;background:#ffffff80;cursor:pointer;padding:0}
+.pjd-carousel .pjd-dots button.on{background:#fff}
+.pjd-carousel .pjd-caption{position:absolute;left:0;right:0;bottom:0;z-index:2;background:#002F6Cdd;padding:11px 16px;font-size:13px;text-align:left}
+.pjd-empty{max-width:500px;padding:30px;line-height:1.5}.pjd-empty b{display:block;font-size:24px;margin-bottom:8px}.pjd-empty code{display:inline-block;margin-top:10px;background:#ffffff20;border-radius:8px;padding:5px 8px;color:#fff}
+.pjd-copy{background:var(--lg);border-radius:18px;padding:22px;display:flex;flex-direction:column;min-height:390px;border-top:6px solid var(--cyan)}
+.pjd-copy h3{color:var(--navy);font-size:22px;margin-bottom:5px}.pjd-path{font-size:12px;color:#6b7787;margin-bottom:14px;word-break:break-all}
+.pjd-copy label{font-size:12px;font-weight:bold;color:var(--navy);text-transform:uppercase;letter-spacing:.7px;margin-bottom:7px}
+.pjd-copy textarea{width:100%;flex:1;min-height:210px;resize:vertical;padding:14px;border:1px solid #cbd4df;border-radius:12px;background:#fff;color:var(--text);font:15px/1.5 Arial}
+.pjd-copy textarea:focus{outline:2px solid var(--cyan);border-color:transparent}
+.pjd-save{font-size:11px;color:#67778a;margin-top:8px}
+@media(max-width:1000px){.pjd-grid{grid-template-columns:1fr}.pjd-carousel{min-height:330px}.pjd-copy{min-height:310px}}
 </style>
 </head>
 <body>
@@ -306,7 +330,7 @@ body.edit .editbar{display:flex}
 <!-- 3 CIUDADES -->
 <section class="slide">
  <div class="kicker">Presencia regional</div>
- <h2>Ciudades principales y mejoras 2024-2026</h2>
+ <h2>Ciudades principales y mejoras</h2>
  <p class="sub">Selecciona la ciudad y el año para recorrer las mejoras ejecutadas.</p>
  <div class="sfilters">
   <label for="sCia">Compañía</label><select id="sCia"><option value="">Todas las compañías</option></select>
@@ -332,7 +356,28 @@ body.edit .editbar{display:flex}
  </div>
 </section>
 
-<!-- 5 CIERRE -->
+<!-- 5 PROYECTOS DESTACADOS -->
+<section class="slide" id="proyectosDestacados">
+ <div class="kicker">Portafolio visual</div>
+ <h2>Proyectos destacados</h2>
+ <p class="sub">Filtra por año y proyecto para recorrer las fotos y registrar su descripción.</p>
+ <div class="pjd-filters">
+  <label for="pjdYear">Año</label><select id="pjdYear" aria-label="Filtrar proyectos destacados por año"></select>
+  <label for="pjdProject">Proyecto</label><select id="pjdProject" aria-label="Filtrar por nombre de proyecto"></select>
+ </div>
+ <div class="pjd-grid">
+  <div class="pjd-carousel" id="pjdCarousel" aria-live="polite"></div>
+  <div class="pjd-copy">
+   <h3 id="pjdTitle">Proyecto destacado</h3>
+   <div class="pjd-path" id="pjdPath">pj_destacados/</div>
+   <label for="pjdText">Texto del proyecto</label>
+   <textarea id="pjdText" placeholder="Escribe aquí la descripción del proyecto..."></textarea>
+   <div class="pjd-save" id="pjdSave">El texto se guarda automáticamente en este navegador.</div>
+  </div>
+ </div>
+</section>
+
+<!-- 6 CIERRE -->
 <section class="slide">
  <div class="close"><div>
   <div class="kicker">Regional Norte</div>
@@ -486,16 +531,73 @@ body.edit .editbar{display:flex}
    </div>
    <div class="grid2" style="margin-top:18px"><div class="imgslot" data-img="img/vision/vision-2.jpg">Imagen opcional<br>img/vision/vision-2.jpg</div><div class="imgslot" data-img="img/vision/vision-3.jpg" style="background:linear-gradient(135deg,var(--navy),var(--lb))">Imagen opcional<br>img/vision/vision-3.jpg</div></div>
   </div>
-  <div class="tabc" id="v4">
-   <div class="road">
-    <div class="st" style="background:var(--grey);color:var(--navy)"><b>2027</b><span data-edit="rd-1">Diagnóstico del portafolio y plan maestro por ciudad.</span></div>
-    <div class="st" style="background:var(--lb);color:var(--navy)"><b>2028</b><span data-edit="rd-2">Consolidación de sedes y primeras soluciones de energía renovable.</span></div>
-    <div class="st" style="background:var(--green);color:var(--navy)"><b>2029</b><span data-edit="rd-3">Mantenimiento predictivo en equipos críticos y tableros integrados.</span></div>
-    <div class="st" style="background:var(--yellow);color:var(--navy)"><b>2030</b><span data-edit="rd-4">Sedes estándar SURA: accesibles, sostenibles y modulares.</span></div>
-    <div class="st" style="background:var(--navy)"><b>2031</b><span data-edit="rd-5">Regional referente en gestión inmobiliaria del sector.</span></div>
-   </div>
-   <div class="card" style="margin-top:18px"><h3>Indicadores de seguimiento propuestos</h3><p data-edit="rd-kpi">Costo por m², ocupación por sede, cumplimiento de mantenimiento preventivo, ANS de correctivos, consumo energético por m² y ejecución presupuestal de proyectos.</p></div>
+<div class="tabc" id="v4">
+
+  <p class="sub" data-edit="rd-intro">
+    Hoja de ruta de expansión y transformación de la prestación hacia 2031.
+    Las iniciativas se encuentran en diferentes etapas de conversación,
+    dimensionamiento y planificación.
+  </p>
+
+  <div class="road">
+
+    <div class="st" style="background:var(--grey);color:var(--navy)">
+      <b>Barranquilla</b>
+      <span data-edit="rd-1">
+        Consolidación y traslado de servicios hacia el edificio de la 51B,
+        incluyendo Ayudas Diagnósticas, Salud en Casa e IPS básica,
+        sujeto a dimensionamiento y viabilidad financiera.
+      </span>
+    </div>
+
+    <div class="st" style="background:var(--lb);color:var(--navy)">
+      <b>Barranquilla</b>
+      <span data-edit="rd-2">
+        Reorganización de servicios ARL, expansión de urgencias PBS,
+        nodo sur de Salud en Casa y reconversión de espacios en
+        Urgencias Barranquilla Sur.
+      </span>
+    </div>
+
+    <div class="st" style="background:var(--green);color:var(--navy)">
+      <b>Cartagena</b>
+      <span data-edit="rd-3">
+        Integración de IPS Movisol, rehabilitación y atención en sitio;
+        fortalecimiento de Salud en Casa y mayor capilaridad de
+        Ayudas Diagnósticas en Bocagrande.
+      </span>
+    </div>
+
+    <div class="st" style="background:var(--yellow);color:var(--navy)">
+      <b>Bucaramanga</b>
+      <span data-edit="rd-4">
+        Reconversión de Ayudas Diagnósticas y espacios administrativos
+        de Salud SURA para ampliar la capacidad de los espacios asistenciales.
+      </span>
+    </div>
+
+    <div class="st" style="background:var(--navy);color:white">
+      <b>Cúcuta</b>
+      <span data-edit="rd-5">
+        Expansión de servicios de Salud SURA, con foco en
+        Ayudas Diagnósticas e imágenes.
+      </span>
+    </div>
+
   </div>
+
+  <div class="card" style="margin-top:18px">
+    <h3>Prioridades estratégicas hacia 2031</h3>
+    <p data-edit="rd-kpi">
+      Consolidar infraestructura, ampliar capacidad asistencial,
+      optimizar la ocupación de las sedes, fortalecer Salud en Casa
+      y ARL, aumentar la capilaridad de Ayudas Diagnósticas y adaptar
+      el portafolio inmobiliario a la evolución de los negocios y
+      de los aseguradores.
+    </p>
+  </div>
+
+</div>
  </div>
 </div></div>
 
@@ -510,7 +612,7 @@ body.edit .editbar{display:flex}
    <div class="card"><span class="tag y">IA generativa</span><h3>Actas y comunicaciones con Copilot</h3><p data-edit="ia-3">Generación de minutas con resumen por participante, acuerdos y acciones por sede, además de correos técnicos e informes gerenciales.</p></div>
    <div class="card"><span class="tag">Automatización</span><h3>App para Visitas a Sede</h3><p data-edit="ia-4">Una App en powerautomate que permite enviar los reportes de los recorridos de las sedes en tiempo real.</p></div>
    <div class="card"><span class="tag g">Reportes</span><h3>Informes HTML y PDF</h3><p data-edit="ia-5">Reportes interactivos de mantenimiento, HVAC e infraestructura generados con apoyo de IA.</p></div>
-   <div class="card" style="border-left-color:var(--grey)"><span class="tag" style="background:var(--grey)">Nuevo</span><h3 data-edit="ia-6t">Agregar desarrollo</h3><p data-edit="ia-6">Describa aquí otro desarrollo, el problema que resolvió y el resultado obtenido.</p></div>
+   <div class="card"><span class="tag y">Prefactibilidades</span><h3 data-edit="ia-6t">Generacion de Prefactibilidades con Tenores</h3><p data-edit="ia-6">Generacion de prefactibilidades con base en tenores estandarizados por m2 para solicitar presupuestos de forma mas agil.</p></div>
   </div>
   <div class="grid2" style="margin-top:18px">
    <div class="card"><h3>Beneficios observados</h3><p data-edit="ia-ben">Menos reprocesos, información centralizada, trazabilidad de pagos y proyectos, y respuestas más rápidas a los negocios.</p></div>
@@ -620,6 +722,51 @@ function renderCarousel(city,c){
  });
  p.dataset.city=city;
 }
+/* ===== PROYECTOS DESTACADOS · carpeta pj_destacados/ ===== */
+const PJD=(typeof PROYECTOS_DESTACADOS!='undefined'?PROYECTOS_DESTACADOS:[]).map((p,i)=>{
+ const carpeta=String(p.carpeta||''),nombre=String(p.nombre||'').trim();
+ return {...p,anio:String(p.anio||''),carpeta,nombre:nombre||String(carpeta||('Proyecto '+(i+1))).replace(/[_-]+/g,' ').replace(/(^|\s)([a-záéíóúüñ])/g,(m,a,b)=>a+b.toUpperCase())};
+});
+let pjdTimer=null,pjdLoad=0;
+const pjdKey=p=>'pj-destacado-texto:'+p.carpeta;
+function pjdGetText(p){try{const v=localStorage.getItem(pjdKey(p));return v===null?(p.texto||''):v}catch(e){return p.texto||''}}
+function pjdSetText(p,v){try{localStorage.setItem(pjdKey(p),v);$('#pjdSave').textContent='Texto guardado automáticamente en este navegador.'}catch(e){$('#pjdSave').textContent='El navegador no permitió guardar; el texto se mantendrá durante esta sesión.'}}
+function pjdCandidates(p){
+ const base='pj_destacados/'+p.carpeta+'/',list=[];
+ (p.fotos||[]).forEach(f=>{const o=typeof f=='string'?{archivo:f,texto:''}:f||{};if(o.archivo)list.push({src:/^(?:https?:|data:|pj_destacados\/)/.test(o.archivo)?o.archivo:base+o.archivo,txt:o.texto||''})});
+ ['portada'].concat([...Array(20)].map((_,i)=>'foto-'+(i+1))).forEach(n=>['jpg','jpeg','png','webp'].forEach(ext=>list.push({src:base+n+'.'+ext,txt:''})));
+ const seen=new Set();return list.filter(f=>!seen.has(f.src)&&seen.add(f.src));
+}
+function pjdShowEmpty(p){
+ $('#pjdCarousel').innerHTML=`<div class="pjd-empty"><b>${p?'Aún no hay fotos disponibles':'No hay proyectos configurados'}</b>${p?'Agrega imágenes a la carpeta del proyecto. Se detectan automáticamente foto-1.jpg, foto-2.jpg… o puedes listar otros nombres en data.js.':'Agrega los proyectos en PROYECTOS_DESTACADOS dentro de data.js.'}${p?`<br><code>pj_destacados/${p.carpeta}/</code>`:''}</div>`;
+}
+async function pjdRender(p){
+ clearInterval(pjdTimer);const token=++pjdLoad,car=$('#pjdCarousel');
+ if(!p){pjdShowEmpty();$('#pjdTitle').textContent='Proyecto destacado';$('#pjdPath').textContent='pj_destacados/';$('#pjdText').value='';$('#pjdText').disabled=true;return}
+ $('#pjdTitle').textContent=p.nombre;$('#pjdPath').textContent='pj_destacados/'+p.carpeta+'/';$('#pjdText').disabled=false;$('#pjdText').value=pjdGetText(p);$('#pjdText').oninput=e=>pjdSetText(p,e.target.value);
+ car.innerHTML=`<div class="pjd-empty"><b>Cargando fotografías…</b><code>pj_destacados/${p.carpeta}/</code></div>`;
+ const fotos=(await Promise.all(pjdCandidates(p).map(f=>new Promise(ok=>{const im=new Image();im.onload=()=>ok(f);im.onerror=()=>ok(null);im.src=encodeURI(f.src)})))).filter(Boolean);
+ if(token!=pjdLoad)return;if(!fotos.length){pjdShowEmpty(p);return}
+ let pos=0;
+ car.innerHTML=`<div class="pjd-slides">${fotos.map((f,i)=>`<img class="${i?'':'on'}" src="${encodeURI(f.src)}" alt="${p.nombre} · foto ${i+1}">`).join('')}</div>`+
+  (fotos.length>1?`<button class="pjd-nav prev" type="button" aria-label="Foto anterior">‹</button><button class="pjd-nav next" type="button" aria-label="Foto siguiente">›</button><div class="pjd-dots">${fotos.map((_,i)=>`<button type="button" class="${i?'':'on'}" aria-label="Ver foto ${i+1}"></button>`).join('')}</div>`:'')+
+  `<div class="pjd-caption"></div>`;
+ const show=n=>{pos=(n+fotos.length)%fotos.length;car.querySelectorAll('.pjd-slides img').forEach((im,i)=>im.classList.toggle('on',i==pos));car.querySelectorAll('.pjd-dots button').forEach((b,i)=>b.classList.toggle('on',i==pos));car.querySelector('.pjd-caption').textContent=(fotos[pos].txt?fotos[pos].txt+' · ':'')+p.nombre+' · '+(pos+1)+' de '+fotos.length};
+ const auto=()=>{clearInterval(pjdTimer);if(fotos.length>1)pjdTimer=setInterval(()=>show(pos+1),5000)};
+ if(fotos.length>1){car.querySelector('.prev').onclick=()=>{show(pos-1);auto()};car.querySelector('.next').onclick=()=>{show(pos+1);auto()};car.querySelectorAll('.pjd-dots button').forEach((b,i)=>b.onclick=()=>{show(i);auto()});car.onmouseenter=()=>clearInterval(pjdTimer);car.onmouseleave=auto}
+ show(0);auto();
+}
+function pjdFillProjects(){
+ const y=$('#pjdYear').value,list=PJD.filter(p=>!y||p.anio==y),sel=$('#pjdProject'),old=sel.value;
+ sel.innerHTML=list.map((p,i)=>`<option value="${PJD.indexOf(p)}">${p.nombre}</option>`).join('');
+ if(list.length){sel.value=list.some(p=>String(PJD.indexOf(p))==old)?old:String(PJD.indexOf(list[0]));pjdRender(PJD[+sel.value])}else pjdRender(null);
+}
+function pjdInit(){
+ const ys=[...new Set(PJD.map(p=>p.anio).filter(Boolean))].sort((a,b)=>b.localeCompare(a,'es'));
+ $('#pjdYear').innerHTML='<option value="">Todos los años</option>'+ys.map(y=>`<option value="${y}">${y}</option>`).join('');
+ $('#pjdYear').onchange=pjdFillProjects;$('#pjdProject').onchange=e=>pjdRender(PJD[+e.target.value]);pjdFillProjects();
+}
+pjdInit();
 /* ===== FILTROS COMPAÑÍA / SEDE ===== */
 let sede='',cia='';
 const SD=(typeof SEDES!=='undefined'?SEDES:[]);
@@ -862,7 +1009,7 @@ function renderSede(){const s=SD.find(x=>x.id==sede);
 let city='Barranquilla',year='2026';
 sede='';
 Object.keys(CIUDADES).forEach(c=>{const d=document.createElement('div');d.className='city';d.textContent=c;d.onclick=()=>{city=c;sede='';renderCity()};$('#cities').appendChild(d)});
-['2024','2025','2026', '2027'].forEach(y=>{const b=document.createElement('button');b.textContent=y;b.onclick=()=>{year=y;renderCity()};$('#years').appendChild(b)});
+['2025','2026', '2027'].forEach(y=>{const b=document.createElement('button');b.textContent=y;b.onclick=()=>{year=y;renderCity()};$('#years').appendChild(b)});
 function renderCity(){const c=CIUDADES[city];$$('.city').forEach(d=>d.classList.toggle('on',d.textContent==city));$$('#years button').forEach(b=>b.classList.toggle('on',b.textContent==year));
  fillSedes();if(sede){renderSede();return}
  renderCarousel(city,c);
