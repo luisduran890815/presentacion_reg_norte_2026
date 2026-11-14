@@ -250,7 +250,10 @@ const SEDES = [
    Cada proyecto corresponde a una carpeta dentro de pj_destacados/.
 
    Para agregar otro proyecto, copie una entrada y cambie:
-   - anio: año que aparecerá en el filtro.
+   - ciudad: una de estas opciones: Barranquilla, Cartagena, Santa Marta, Valledupar,
+     Montería, Cúcuta o Bucaramanga.
+   - unidades: una o varias opciones entre Seguros Generales, Servicios Generales,
+     IPS, AYDX y EPS.
    - carpeta: nombre EXACTO de la carpeta interna de pj_destacados.
    - nombre: título visible. Si se deja vacío, se forma desde el nombre de la carpeta.
    - texto: contenido inicial del cuadro de texto. El usuario también puede escribir en la
@@ -262,7 +265,7 @@ const SEDES = [
    jpg, jpeg, png y webp dentro de pj_destacados/<carpeta>/.
 */
 const PROYECTOS_DESTACADOS = [
- {anio:"2026", carpeta:"rehabilitacion_genoves", nombre:"Rehabilitación Genovés",
+ {ciudad:"Barranquilla", unidades:["IPS"], carpeta:"rehabilitacion_genoves", nombre:"Rehabilitación Genovés",
   texto:"Escriba aquí la descripción, los resultados y los aspectos destacados del proyecto.",
   fotos:[]}
 ];

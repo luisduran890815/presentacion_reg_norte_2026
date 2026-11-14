@@ -1,0 +1,25 @@
+ESTRUCTURA PROYECTOS DESTACADOS
+
+Ruta esperada:
+pj_destacados/ciudad/unidad_de_negocio/proyecto/foto.jpg
+
+Ciudades:
+- barranquilla
+- cartagena
+- bucaramanga
+- cucuta
+- santa_marta
+- monteria
+- valledupar
+
+Unidades de negocio:
+- seguros_generales
+- servicios_generales
+- ips
+- aydx
+- eps
+
+Ejemplo:
+pj_destacados/barranquilla/ips/rehabilitacion_genoves/foto-1.jpg
+
+Recomendacion: nombres en minusculas, sin tildes ni espacios; use guion_bajo.
