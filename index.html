@@ -373,7 +373,7 @@ body.edit .editbar{display:flex}
    <div class="pjd-path" id="pjdPath">pj_destacados/</div>
    <label for="pjdText">Texto del proyecto</label>
    <textarea id="pjdText" placeholder="Escribe aquí la descripción del proyecto..."></textarea>
-   <div class="pjd-save" id="pjdSave">El texto se guarda automáticamente en este navegador.</div>
+   <div class="pjd-save" id="pjdSave">El texto permanente se carga desde data.js.</div>
   </div>
  </div>
 </section>
@@ -608,12 +608,37 @@ body.edit .editbar{display:flex}
  <div class="mbody">
   <div class="flow"><div>Dato en Excel / SAP</div><span>›</span><div>Automatización</div><span>›</span><div>Tablero web</div><span>›</span><div>Decisión</div></div>
   <div class="ia">
-   <div class="card"><span class="tag">Tablero web</span><h3>Control de proyectos y pagos</h3><p data-edit="ia-1">Dashboard en linea para seguir proyectos, presupuesto y pagos a proveedores.</p></div>
-   <div class="card"><span class="tag g">Gestión de proyectos</span><h3>Bitácora y checklist con Gantt</h3><p data-edit="ia-2">Checklist de proyectos con diagrama de Gantt por proyecto, autenticación y asignación de roles desde la base de datos.</p></div>
-   <div class="card"><span class="tag y">IA generativa</span><h3>Actas y comunicaciones con Copilot</h3><p data-edit="ia-3">Generación de minutas con resumen por participante, acuerdos y acciones por sede, además de correos técnicos e informes gerenciales.</p></div>
-   <div class="card"><span class="tag">Automatización</span><h3>App para Visitas a Sede</h3><p data-edit="ia-4">Una App en powerautomate que permite enviar los reportes de los recorridos de las sedes en tiempo real.</p></div>
-   <div class="card"><span class="tag g">Reportes</span><h3>Informes HTML y PDF</h3><p data-edit="ia-5">Reportes interactivos de mantenimiento, HVAC e infraestructura generados con apoyo de IA.</p></div>
-   <div class="card"><span class="tag y">Prefactibilidades</span><h3 data-edit="ia-6t">Generacion de Prefactibilidades con Tenores</h3><p data-edit="ia-6">Generacion de prefactibilidades con base en tenores estandarizados por m2 para solicitar presupuestos de forma mas agil.</p></div>
+   <div class="card" onclick="window.open('https://dashboard-presupuestos.netlify.app/','_blank')" style="cursor:pointer;"><span class="tag">Tablero web</span>
+       <h3>Control de proyectos y pagos</h3>
+       <p data-edit="ia-1">Dashboard en linea para seguir proyectos, presupuesto y pagos a proveedores.</p>
+   </div>
+   <div class="card" onclick="window.open('https://checklistproyectos.netlify.app/','_blank')"
+     style="cursor:pointer;"><span class="tag g">Gestión de proyectos</span>
+       <h3>Bitácora y checklist con Gantt</h3>
+       <p data-edit="ia-2">Checklist de proyectos con diagrama de Gantt por proyecto,
+           autenticación y asignación de roles desde la base de datos.</p>
+   </div>
+   <div class="card"><span class="tag y">IA generativa</span>
+       <h3>Actas y comunicaciones con Copilot</h3>
+       <p data-edit="ia-3">Generación de minutas con resumen por participante,
+           acuerdos y acciones por sede, además de correos técnicos e informes gerenciales.</p>
+   </div>
+   <div class="card"><span class="tag">Automatización</span>
+       <h3>App para Visitas a Sede</h3>
+       <p data-edit="ia-4">Una App en powerautomate que permite enviar los reportes de los recorridos
+           de las sedes en tiempo real.</p>
+   </div>
+   <div class="card"><span class="tag g">Reportes</span>
+       <h3>Informes HTML y PDF</h3>
+       <p data-edit="ia-5">Reportes interactivos de mantenimiento,
+           HVAC e infraestructura generados con apoyo de IA.</p>
+   </div>
+   <div class="card" onclick="window.open('https://prefactibilidad-proyectos.netlify.app/','_blank')"
+     style="cursor:pointer;"><span class="tag y">Prefactibilidades</span>
+       <h3 data-edit="ia-6t">Generacion de Prefactibilidades con Tenores</h3>
+       <p data-edit="ia-6">Generacion de prefactibilidades con base en tenores
+           estandarizados por m2 para solicitar presupuestos de forma mas agil.</p>
+   </div>
   </div>
   <div class="grid2" style="margin-top:18px">
    <div class="card"><h3>Beneficios observados</h3><p data-edit="ia-ben">Menos reprocesos, información centralizada, trazabilidad de pagos y proyectos, y respuestas más rápidas a los negocios.</p></div>
@@ -737,9 +762,7 @@ const pjdNormalizeProjects=source=>(Array.isArray(source)?source:[]).map((p,i)=>
 }).filter(p=>p.ciudad&&p.unidades.length&&p.proyecto&&p.carpeta);
 const PJD_FALLBACK=pjdNormalizeProjects(typeof PROYECTOS_DESTACADOS!='undefined'?PROYECTOS_DESTACADOS:[]);
 let PJD=PJD_FALLBACK.slice(),pjdLoad=0,pjdActiveProject=null;
-const pjdKey=p=>'pj-destacado-texto:'+p.carpeta;
-function pjdGetText(p){try{const v=localStorage.getItem(pjdKey(p));return v===null?(p.texto||''):v}catch(e){return p.texto||''}}
-function pjdSetText(p,v){try{localStorage.setItem(pjdKey(p),v);$('#pjdSave').textContent='Texto guardado automáticamente en este navegador.'}catch(e){$('#pjdSave').textContent='El navegador no permitió guardar; el texto se mantendrá durante esta sesión.'}}
+const pjdGetText=p=>(typeof PJD_TEXTOS!='undefined'&&Object.prototype.hasOwnProperty.call(PJD_TEXTOS,p.carpeta)?PJD_TEXTOS[p.carpeta]:(p.texto||''));
 function pjdCandidates(p){
  const base='pj_destacados/'+p.carpeta+'/',list=[];
  (p.fotos||[]).forEach(f=>{const o=typeof f=='string'?{archivo:f,texto:''}:f||{};if(o.archivo)list.push({src:/^(?:https?:|data:|pj_destacados\/)/.test(o.archivo)?o.archivo:base+o.archivo,txt:o.texto||''})});
@@ -753,7 +776,7 @@ function pjdShowEmpty(p,message){
 function pjdBindProject(p){
  pjdActiveProject=p||null;
  if(!p){$('#pjdTitle').textContent='Proyecto destacado';$('#pjdPath').textContent='pj_destacados/';$('#pjdText').value='';$('#pjdText').disabled=true;$('#pjdText').oninput=null;return}
- $('#pjdTitle').textContent=p.nombre;$('#pjdPath').textContent='pj_destacados/'+p.carpeta+'/';$('#pjdText').disabled=false;$('#pjdText').value=pjdGetText(p);$('#pjdText').oninput=e=>pjdSetText(p,e.target.value);$('#pjdSave').textContent='El texto se guarda automáticamente en este navegador.';
+ $('#pjdTitle').textContent=p.nombre;$('#pjdPath').textContent='pj_destacados/'+p.carpeta+'/';$('#pjdText').disabled=false;$('#pjdText').value=pjdGetText(p);$('#pjdText').oninput=null;$('#pjdSave').textContent='Texto cargado desde data.js. Para hacerlo permanente, edítalo en PJD_TEXTOS.';
 }
 async function pjdRender(projects){
  const token=++pjdLoad,car=$('#pjdCarousel');
