@@ -115,8 +115,18 @@ h1{font-size:46px;color:var(--navy)}h2{font-size:30px;color:var(--navy);margin-b
 .lead .avatar{background:var(--navy)}
 .person .rol{font-size:12px;font-weight:bold;color:var(--cyan);text-transform:uppercase}
 .person .nm{font-weight:bold;color:var(--navy);font-size:16px}
-.person .bio{padding:14px 16px;font-size:13px;line-height:1.35;min-height:84px;max-height:0;overflow:hidden;transition:.3s;padding-top:0;padding-bottom:0}
-.person.open .bio{max-height:800px;padding:14px 16px}
+.person .bio{
+font-size:14px;
+    line-height:1.45;
+    height:84px;
+    overflow:hidden;
+    padding:14px 16px;
+    transition:.3s;
+}
+.person.open .bio{
+  height:auto;
+  overflow:visible;
+}
 .hint{font-size:12px;color:#777;text-align:center;margin-top:16px}
 /* ciudades */
 .cities{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin-bottom:18px}
