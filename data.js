@@ -864,23 +864,12 @@ const SEDES = [
     nombre:"Ayudas Diagnósticas Montería",
     cia:["Ayudas Diagnosticas"],
     hitos:{
-    "2025":[],
-    "2026":[],
+    "2025":["Aperturo en el 2022"],
+    "2026":["No presenta novedad"],
     "2027":[]
     }
   },
 
-  {
-    id:"CGR MONTERIA/foto",
-    ciudad:"Montería",
-    nombre:"CGR Montería",
-    cia:["CGR"],
-    hitos:{
-    "2025":[],
-    "2026":[],
-    "2027":[]
-    }
-  },
 
 
   /* ---------- VALLEDUPAR ---------- */
