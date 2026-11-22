@@ -528,7 +528,7 @@ const SEDES = [
   {
     id:"SALUD SURA CONTINENTAL/foto",
     ciudad:"Barranquilla",
-    nombre:"Salud SURA Continental",
+    nombre:"SURA Continental",
     cia:["IPS Sura"],
     hitos:{
     "2025":["Proyecto · 2025-REUBICACION AA-0762: Reubicación de aire acondicionado IPS Continental"],
