@@ -54,7 +54,11 @@
   <div class="lvl">
    <div class="person lead" onclick="this.classList.toggle('open')">
     <div class="top"><div class="avatar" data-img="img/equipo/martha.jpg">MV</div><div><div class="rol">Líder</div><div class="nm">Martha Cecilia Vitola Tamara</div></div></div>
-    <div class="bio" data-edit="bio-martha" onclick="event.stopPropagation()">Escriba aquí el resumen personal y profesional de Martha.</div>
+    <div class="bio" data-edit="bio-martha" onclick="event.stopPropagation()">Ingeniera Industrial, especialista en Recursos Humanos y
+        líder del área desde 2007. Su experiencia combina la gestión,
+        el conocimiento del negocio y una visión profundamente humana.
+        Se caracteriza por su creatividad, cercanía y capacidad para liderar equipos,
+        impulsar nuevas ideas y convertir los retos en oportunidades de mejora.</div>
    </div>
   </div>
   <div class="conn"></div><div class="hline"></div>
@@ -62,12 +66,18 @@
    <div style="display:flex;flex-direction:column;align-items:center"><div class="conn"></div>
    <div class="person" onclick="this.classList.toggle('open')">
     <div class="top"><div class="avatar" data-img="img/equipo/osiris.jpg">OB</div><div><div class="rol">Analista</div><div class="nm">Osiris Amparo Brochado Muñoz</div></div></div>
-    <div class="bio" data-edit="bio-osiris" onclick="event.stopPropagation()">Escriba aquí el resumen personal y profesional de Osiris.</div>
+    <div class="bio" data-edit="bio-osiris" onclick="event.stopPropagation()">Contadora Pública enfocada al detalle,
+        con experiencia en gestión de contratos,
+        control presupuestal (mantenimientos de impacto y adecuaciones) y
+        administración de arriendos. Con habilidades en relacionamiento con proveedores,
+        seguimiento, análisis del mantenimiento correctivo y
+        organización de eventos corporativos, aportando criterio financiero y
+        control operativo a cada proceso.</div>
    </div></div>
    <div style="display:flex;flex-direction:column;align-items:center"><div class="conn"></div>
    <div class="person" onclick="this.classList.toggle('open')">
     <div class="top"><div class="avatar" data-img="img/equipo/luis.jpg">LD</div><div><div class="rol">Analista</div><div class="nm">Luis Eduardo Durán Mora</div></div></div>
-    <div class="bio" data-edit="bio-luis" onclick="event.stopPropagation()">Ingeniero Mecánico con vocación por los proyectos, 
+    <div class="bio" data-edit="bio-luis" onclick="event.stopPropagation()">Ingeniero Mecánico, Especialista en Gerencia de Mantenimiento, Especialista en gerencia de Proyectos, con vocación por los proyectos,
       la innovación y la mejora continua. Mi experiencia en mantenimiento, infraestructura y gestión de proyectos se complementa 
       con una visión orientada a la tecnología, la automatización y la IA, buscando simplificar procesos, 
       optimizar el tiempo y generar soluciones que aporten valor a las personas y al negocio.</div>
@@ -75,7 +85,13 @@
    <div style="display:flex;flex-direction:column;align-items:center"><div class="conn"></div>
    <div class="person" onclick="this.classList.toggle('open')">
     <div class="top"><div class="avatar" data-img="img/equipo/jerson.jpg">JD</div><div><div class="rol">Analista</div><div class="nm">Jerson Abel Díaz Uribe</div></div></div>
-    <div class="bio" data-edit="bio-jerson" onclick="event.stopPropagation()">Escriba aquí el resumen personal y profesional de Jerson.</div>
+    <div class="bio" data-edit="bio-jerson" onclick="event.stopPropagation()">Ingeniero Mecatrónico de la Universidad Autónoma de Bucaramanga (UNAB),
+        especialista en Gerencia de Mantenimiento de la Universidad Industrial de Santander (UIS).
+        Cuento con experiencia en automatización industrial, mantenimiento industrial y gestión de operaciones y mantenimiento en el sector hotelero.
+        Actualmente acumulo más de 9 años de experiencia en SURA,
+        donde he participado en proyectos de estandarización de procesos,
+        automatización de tareas y desarrollo de aplicaciones para apoyar la transformación digital y la mejora continua.
+        </div>
    </div></div>
 </section>
 
@@ -122,10 +138,10 @@
   <div class="pjd-carousel" id="pjdCarousel" aria-live="polite"></div>
   <div class="pjd-copy">
    <h3 id="pjdTitle">Proyecto destacado</h3>
-   <div class="pjd-path" id="pjdPath">pj_destacados/</div>
+   <div class="pjd-path" id="pjdPath" style="display:none">pj_destacados/</div>
    <label for="pjdText">Texto del proyecto</label>
    <textarea id="pjdText" placeholder="Escribe aquí la descripción del proyecto..."></textarea>
-   <div class="pjd-save" id="pjdSave">El texto permanente se carga desde data.js.</div>
+   <div class="pjd-save" id="pjdSave" style="display:none">El texto permanente se carga desde data.js.</div>
   </div>
  </div>
 </section>
@@ -831,11 +847,11 @@ function renderSede(){const s=SD.find(x=>x.id==sede);
   if(av.length){const t=av.reduce((a,r)=>a+r[3],0);h.push(`<li class="hdr">Mantenimiento de impacto 2026 · ${av.length} actividades · ${fmtM(t)}</li>`,...av.map(r=>`<li>${r[5].trim()}<span class="bd" style="background:${badge[r[6]]||'#BDBDBD'};color:#002F6C">${r[6]}</span><div class="mt">${r[1]} · ${fmtM(r[3])}${r[8]?' · '+r[8]:''}${r[4]?' · Aviso '+r[4]:''}</div></li>`))}
  }
  $('#tl').innerHTML=h.length?h.join(''):'<li class="pend">Por completar</li>';}
-/* ciudades */
+/* ciudades == NOTA: aqui puedes agregar mas años a las listas*/
 let city='Barranquilla',year='2026';
 sede='';
 Object.keys(CIUDADES).forEach(c=>{const d=document.createElement('div');d.className='city';d.textContent=c;d.onclick=()=>{city=c;sede='';renderCity()};$('#cities').appendChild(d)});
-['2025','2026', '2027'].forEach(y=>{const b=document.createElement('button');b.textContent=y;b.onclick=()=>{year=y;renderCity()};$('#years').appendChild(b)});
+['2025','2026'].forEach(y=>{const b=document.createElement('button');b.textContent=y;b.onclick=()=>{year=y;renderCity()};$('#years').appendChild(b)});
 function renderCity(){const c=CIUDADES[city];$$('.city').forEach(d=>d.classList.toggle('on',d.textContent==city));$$('#years button').forEach(b=>b.classList.toggle('on',b.textContent==year));
  fillSedes();if(sede){renderSede();return}
  renderCarousel(city,c);
