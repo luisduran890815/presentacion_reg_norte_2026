@@ -854,17 +854,6 @@ const SEDES = [
     }
   },
 
-  {
-    id:"AYDX EL PROGRESO/foto",
-    ciudad:"Santa Marta",
-    nombre:"Ayudas Diagnósticas El Progreso",
-    cia:["Ayudas Diagnosticas"],
-    hitos:{
-    "2025":[],
-    "2026":[],
-    "2027":[]
-    }
-  },
 
 
   /* ---------- MONTERÍA ---------- */
