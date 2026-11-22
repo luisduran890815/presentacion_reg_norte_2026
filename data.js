@@ -802,7 +802,7 @@ const SEDES = [
   /* ---------- CÚCUTA ---------- */
 
   {
-    id:"SUCURSAL SEGUROS CUCUTA/foto",
+    id:"CE SUCURSAL CUCUTA/foto",
     ciudad:"Cúcuta",
     nombre:"Sucursal Seguros SURA Cúcuta",
     cia:["Servicios Generales"],
@@ -837,17 +837,7 @@ const SEDES = [
     }
   },
 
-  {
-    id:"AYDX GRAN COLOMBIA/foto",
-    ciudad:"Cúcuta",
-    nombre:"Ayudas Diagnósticas Gran Colombia",
-    cia:["Ayudas Diagnosticas"],
-    hitos:{
-    "2025":[],
-    "2026":[],
-    "2027":[]
-    }
-  },
+
 
 
   /* ---------- SANTA MARTA ---------- */
