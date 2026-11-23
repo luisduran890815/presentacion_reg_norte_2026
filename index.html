@@ -246,7 +246,7 @@
     <div class="card"><h3>Ejecutado vs. presupuesto por ciudad</h3><div id="gImpCity"></div></div>
     <div class="card"><h3>Estado de las actividades</h3><div id="gEst"></div></div>
    </div>
-   <div class="card" style="margin-bottom:22px"><h3>Ejecución por sede</h3><div class="filters"><select id="iCia" onchange="renderImp()"><option value="">Todas las compañías</option></select></div><div style="max-height:300px;overflow:auto"><table><thead><tr><th>Sede</th><th>Ciudad</th><th>Compañía</th><th>Presupuesto</th><th>Ejecutado</th><th>%</th><th>Seguimiento</th></tr></thead><tbody id="tbImp"></tbody></table></div></div>
+   <div class="card" style="margin-bottom:22px"><h3>Ejecución por sede</h3><div class="filters"><select id="iCia" onchange="renderImp()"><option value="">Todas las compañías</option></select></div><div style="max-height:300px;overflow:auto"><table><thead><tr><th onclick="sortImp(0)">Sede</th><th onclick="sortImp(2)">Ciudad</th><th onclick="sortImp(1)">Compañía</th><th onclick="sortImp(3)">Presupuesto</th><th onclick="sortImp(4)">Ejecutado</th><th onclick="sortImp('pc')">%</th><th onclick="sortImp(5)">Seguimiento</th></tr></thead><tbody id="tbImp"></tbody></table></div></div>
    <div class="card">
     <h3>Actividades (avisos SAP)</h3>
     <div class="filters">
@@ -255,7 +255,7 @@
      <select id="aEst" onchange="renderAv()"><option value="">Todos los estados</option></select>
        <select id="aCia" onchange="renderAv()"><option value="">Todas las compañías</option></select>
     </div>
-    <div style="max-height:340px;overflow:auto"><table><thead><tr><th>Aviso</th><th>Actividad</th><th>Sede</th><th>Ciudad</th><th>Costo</th><th>Estado</th><th>Avance</th><th>Proveedor</th></tr></thead><tbody id="tbAv"></tbody></table></div>
+    <div style="max-height:340px;overflow:auto"><table><thead><tr><th onclick="sortAv(4)">Aviso</th><th onclick="sortAv(5)">Actividad</th><th onclick="sortAv(0)">Sede</th><th onclick="sortAv(2)">Ciudad</th><th onclick="sortAv(3)">Costo</th><th onclick="sortAv(6)">Estado</th><th onclick="sortAv(7)">Avance</th><th onclick="sortAv(8)">Proveedor</th></tr></thead><tbody id="tbAv"></tbody></table></div>
     <p class="note">Fuente: excel/Consolidado Cierre 2025 y Presupuesto 2026 (PTTO IMPACTO y AVISOS IMPACTO), leído automáticamente. Presupuesto después de cruces entre compañías.</p>
    </div>
   </div>
@@ -875,11 +875,17 @@ $('#iAp').textContent=fmtM(imAp);$('#iEj').textContent=fmtM(imEj);$('#iPc').text
  $('#gImpCity').innerHTML=e.map(([c,[ap,ej]])=>`<div class="bar"><span>${c}</span><div class="tr" style="position:relative"><div class="fl" data-w="${ap/m*100}" style="background:#BDBDBD;position:absolute;top:0;left:0"></div><div class="fl" data-w="${Math.min(ej,ap*1.2)/m*100}" style="background:#00AEC7;position:absolute;top:5px;left:0;height:10px"></div></div><span class="v">${fmtM(ej)} / ${fmtM(ap)}</span></div>`).join('')+'<p class="note">Gris: presupuesto · Turquesa: ejecutado</p>'})();
 (()=>{const o={};AVISOS_IMPACTO.forEach(r=>o[r[6]]=(o[r[6]]||0)+1);const e=Object.entries(o).sort((a,b)=>b[1]-a[1]);if(!e.length)return;const m=e[0][1],c={'Completado':'#96C676','En ejecucion':'#00AEC7','Formalizacion':'#8EAFEF','Cotizacion':'#E5EB10','Sin iniciar':'#BDBDBD'};
  $('#gEst').innerHTML=e.map(([k,v])=>`<div class="bar"><span>${k}</span><div class="tr"><div class="fl" data-w="${v/m*100}" style="background:${c[k]||'#002F6C'}"></div></div><span class="v">${v} act.</span></div>`).join('')})();
-function renderImp(){const f=$('#iCia').value;$('#tbImp').innerHTML=IMPACTO_2026.filter(r=>!f||r[1]==f).sort((a,b)=>b[4]-a[4]).map(r=>`<tr><td>${r[0]}</td><td>${r[2]}</td><td>${r[1]}</td><td class="n">$${r[3].toLocaleString('es-CO')}</td><td class="n">$${r[4].toLocaleString('es-CO')}</td><td class="n" style="color:${r[4]>r[3]?'#c00':'inherit'}">${r[3]?(r[4]/r[3]*100).toFixed(0)+'%':'–'}</td><td>${r[5]}</td></tr>`).join('')}
+/* ordenamiento por columna · Mantenimiento de impacto */
+ let iSk=4,iSd=-1,aSk=3,aSd=-1;
+ const cmpV=(x,y)=>typeof x=='number'&&typeof y=='number'?x-y:String(x??'').localeCompare(String(y??''),'es',{numeric:true,sensitivity:'base'});
+ const impV=(r,k)=>k=='pc'?(r[3]?r[4]/r[3]:0):r[k];
+ function sortImp(k){iSd=iSk===k?-iSd:(typeof impV(IMPACTO_2026[0]||[],k)=='number'?-1:1);iSk=k;renderImp()}
+ function sortAv(k){aSd=aSk===k?-aSd:(typeof (AVISOS_IMPACTO[0]||[])[k]=='number'?-1:1);aSk=k;renderAv()}
+ function renderImp(){const f=$('#iCia').value;$('#tbImp').innerHTML=IMPACTO_2026.filter(r=>!f||r[1]==f).sort((a,b)=>cmpV(impV(a,iSk),impV(b,iSk))*iSd).map(r=>`<tr><td>${r[0]}</td><td>${r[2]}</td><td>${r[1]}</td><td class="n">$${r[3].toLocaleString('es-CO')}</td><td class="n">$${r[4].toLocaleString('es-CO')}</td><td class="n" style="color:${r[4]>r[3]?'#c00':'inherit'}">${r[3]?(r[4]/r[3]*100).toFixed(0)+'%':'–'}</td><td>${r[5]}</td></tr>`).join('')}
 [...new Set(IMPACTO_2026.map(r=>r[1]))].sort().forEach(c=>{$('#iCia').add(new Option(c,c));$('#aCia').add(new Option(c,c))});renderImp();
 [...new Set(AVISOS_IMPACTO.map(r=>r[2]))].sort().forEach(c=>$('#aCity').add(new Option(c,c)));[...new Set(AVISOS_IMPACTO.map(r=>r[6]))].forEach(c=>$('#aEst').add(new Option(c,c)));
 function renderAv(){const q=$('#aTxt').value.toLowerCase(),c=$('#aCity').value,e=$('#aEst').value,fc=$('#aCia').value;
- $('#tbAv').innerHTML=AVISOS_IMPACTO.filter(r=>(!c||r[2]==c)&&(!e||r[6]==e)&&(!fc||r[1]==fc)&&r.join(' ').toLowerCase().includes(q)).sort((a,b)=>b[3]-a[3]).map(r=>`<tr><td>${r[4]||'–'}</td><td>${r[5]}</td><td>${r[0]}</td><td>${r[2]}</td><td class="n">$${r[3].toLocaleString('es-CO')}</td><td>${r[6]}</td><td class="n">${Math.round(r[7]*100)}%</td><td>${r[8]}</td></tr>`).join('')}
+ $('#tbAv').innerHTML=AVISOS_IMPACTO.filter(r=>(!c||r[2]==c)&&(!e||r[6]==e)&&(!fc||r[1]==fc)&&r.join(' ').toLowerCase().includes(q)).sort((a,b)=>cmpV(a[aSk],b[aSk])*aSd).map(r=>`<tr><td>${r[4]||'–'}</td><td>${r[5]}</td><td>${r[0]}</td><td>${r[2]}</td><td class="n">$${r[3].toLocaleString('es-CO')}</td><td>${r[6]}</td><td class="n">${Math.round(r[7]*100)}%</td><td>${r[8]}</td></tr>`).join('')}
 renderAv();
 function animBars(){$$('#mCifras .fl').forEach(f=>f.style.width=0);setTimeout(()=>$$('#mCifras .tabc.on .fl').forEach(f=>f.style.width=f.dataset.w+'%'),60)}
 $$('#ctabs button').forEach(b=>b.onclick=()=>{$$('#ctabs button').forEach(x=>x.classList.remove('on'));b.classList.add('on');$$('#mCifras .tabc').forEach(t=>t.classList.toggle('on',t.id==b.dataset.t));animBars()});
