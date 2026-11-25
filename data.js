@@ -738,7 +738,7 @@ const SEDES = [
     id:"SUCURSAL BUCARAMANGA/foto",
     ciudad:"Bucaramanga",
     nombre:"Sucursal Bucaramanga",
-    cia:["Sura Generales","Ayudas Diagnosticas"],
+    cia:["Servicios Generales"],
     hitos:{
       "2025":[],
       "2026":[
@@ -756,7 +756,7 @@ const SEDES = [
     id:"AUTOS SURA BUCARAMANGA/foto",
     ciudad:"Bucaramanga",
     nombre:"Autos SURA Bucaramanga",
-    cia:["Sura Generales","Servicios Generales"],
+    cia:["Servicios Generales"],
     hitos:{
       "2025":[
   "Proyecto · CAFEBGAAUTOS-07542: Adecuación de nicho de café Autos Bucaramanga",
